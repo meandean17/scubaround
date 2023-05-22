@@ -248,10 +248,6 @@ a {
     z-index: 1;
 }
 
-.form-select {
-    width: 50%;
-}
-
 .dive-map {
     height: 300px;
     max-width: 500px;
@@ -544,13 +540,63 @@ a {
 }
 
 .home-content-area {
-    margin: 12px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 12px auto 64px;
+    height: fit-content
+}
 
+.left-side-home {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .conditions-area {}
 
+.home-content-limit {
+    max-height: 500px;
+    overflow: hidden;
+}
+
+.post-area {
+    display: flex;
+    flex-direction: column;
+    padding-inline: 8px;
+    gap: 16px;
+
+}
+
 .post-header h3 {
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.post-area-divider {
+    border-bottom: 1px solid gray;
+    margin: 16px auto;
+}
+
+.post-content p,
+.recent-dive-content p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* number of lines to show */
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.recent-dive-area {
+    display: flex;
+    flex-direction: column;
+    padding-inline: 8px;
+    gap: 16px;
+    text-overflow: clip;
+}
+
+.recent-dive-header h3 {
     font-size: 15px;
     font-weight: normal;
 }
@@ -560,6 +606,11 @@ a {
 @media screen and (min-width: 800px) {
 
     /* dive creation page */
+    .route-creation-form {
+        max-width: 1140px;
+        margin: 0 auto;
+    }
+
     .route-creation {
         display: flex;
         gap: 20%;
@@ -577,6 +628,7 @@ a {
     .save-dive {
         background-color: #D9D9D9;
         width: 60%;
+        max-width: 600px;
         margin: 24px auto;
         padding: 24px;
     }
@@ -592,7 +644,6 @@ a {
         width: 20%;
         text-overflow: ellipsis;
         font-weight: 500;
-
     }
 
     .dive-date {
@@ -649,17 +700,41 @@ a {
         margin-top: 16px;
         justify-content: space-evenly;
     }
+
+    /* homepage */
+
+    .home-content-area {
+        overflow: hidden;
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 0px;
+
+    }
+
+    .home-content-limit {
+        max-height: 900px;
+    }
+
+    .left-side-home,
+    .right-sideh-home {
+        max-height: 900px;
+    }
+
+    .post-content p,
+    .recent-dive-content p {
+        -webkit-line-clamp: 6;
+        /* number of lines to show */
+        line-clamp: 6;
+    }
+
+    .recent-dive-area {
+        min-height: 300px;
+    }
+
+    .post-area {
+        min-height: 150px;
+    }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 /* navbar styling */

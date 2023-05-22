@@ -32,13 +32,13 @@
                         </a>
                         <a href="./list.html">
                             <div class="nav-item">
-                                <img src="./imgs/scuba-dive-icon.png" alt="">
+                                <img src="./imgs/history_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Dive History
                             </div>
                         </a>
                         <a href="./dive.html">
                             <div class="nav-item">
-                                <img src="./imgs/history_FILL1_wght400_GRAD0_opsz48.png" alt="">
+                                <img src="./imgs/scuba-dive-icon.png" alt="">
                                 Plan New Dive
                             </div>
                         </a>
@@ -89,8 +89,12 @@
             </div>
         </div>
     </header>
-    <div class="scub-container">
-        <div class="content-background">
+    <form action="./php/diveCreated.php" method="get" class="route-creation-form">
+        <div class="scub-container content-background">
+            <div class="main-header">
+                <h2>Dive Name:</h2>
+            </div>
+            <input type="text" name="diveName" id="diveName" class="form-control">
             <div class="main-header">
                 <h2>Dive type:</h2>
             </div>
@@ -123,12 +127,13 @@
                     </div>
                 </div>
             </div>
+
         </div>
-        <div class="save-dive">
+        <div class="scub-container save-dive content-background">
             <a href="#" class="button">Save</a>
             <a href="#" class="button">Save as Draft</a>
         </div>
-    </div>
+    </form>
 </body>
 
 </html>
