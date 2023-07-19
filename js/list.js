@@ -1,15 +1,15 @@
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log("DOMContentLoaded event fired!");
     getDiveHistory();
-  });
+});
 
 
 function getDiveHistory() {
     console.log("getDiveHistory function called!");
     fetch('./php/list.php')
         .then(response => {
-            console.log("Response received",response);
+            console.log("Response received", response);
             return response.json();
         })
         .then(data => {
@@ -30,7 +30,7 @@ function getDiveHistory() {
 function createDiveListItem(dive) {
     const listItem = document.createElement('li');
     listItem.innerHTML = `
-        <a href="./main.html" class="dive-list-item">
+        <a href="./dive.php" class="dive-list-item">
             <div class="dive-name">${dive.dive_name}</div>
             <div class="dive-date">${dive.dive_date}</div>
             <div class="dive-status ${dive.is_public ? 'public' : 'private'}">${dive.is_public ? 'Public' : 'Private'}</div>

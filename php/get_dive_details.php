@@ -13,6 +13,6 @@
     Starting Point: 29.547684, 34.953471 <br>
     Ending Point: 29.547306, 34.954946
 
-    <a href="../home.html">Back</a>
+    <a href="../index.php">Back</a>
 </body>
 </html>

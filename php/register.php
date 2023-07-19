@@ -21,12 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Hash the password
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
+    
     // Store the user data in the database
     $query = "INSERT INTO tbl_226_users (username, password, age, email, user_type, user_img) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($query);
     $stmt->execute([$username, $hashedPassword, $age, $email, $userType, $userImg]);
-
+    
   
     header("Location: ../login.html");
     exit();
