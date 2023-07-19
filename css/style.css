@@ -841,11 +841,53 @@ span a {
 }
 
 
-.button-group {
+.form-button-group {
     display: flex;
-    gap: 10px;
+    gap: 8px;
+    justify-content: space-between;
     align-items: center;
-    margin-left:150px;
+}
+
+.form-button-group .button {
+    width: 30%;
 }
 
 
+/* SIGN */
+.sign-form-container {
+    max-width: 550px;
+    margin-top: 80px;
+    padding: 24px;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-form-container .sign-form-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+}
+
+.sign-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.sign-form form {
+    display: contents;
+}
+
+.sign-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.sign-form input {
+    line-height: 40px;
+}

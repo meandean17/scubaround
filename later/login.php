@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Authentication successful
         // Redirect the user to their profile page or the main application page
         $_SESSION["user_id"] = $user["user_id"];
-        header("Location: ../index.html");
+        header("Location: ../home.html");
         exit();
     } else {
         // Authentication failed
@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password">
                     <br><br>
-                    <div class="button-group">
+                    <div class="form-button-group">
                         <button type="submit" class="button">Login</button>
                         <a href="register.php" class="button">Sign Up</a>
                     </div>

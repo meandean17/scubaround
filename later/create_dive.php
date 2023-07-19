@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <span onclick="openNav()" class="hamburger"></span>
                     <div id="mySidenav" class="sidenav">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                        <a href="./index.html">
+                        <a href="./home.html">
                             <div class="nav-item">
                                 <img src="./imgs/home_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Home
@@ -154,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </a>
                     </div>
                 </div>
-                <a href="./index.html"><img src="./imgs/logo.png" alt="scubaround logo" class="logo"></a>
+                <a href="./home.html"><img src="./imgs/logo.png" alt="scubaround logo" class="logo"></a>
             </div>
             <div class="search-and-profile">
                 <img src="./imgs/profile-icon.png" alt="profile logo" class="profile-logo">
