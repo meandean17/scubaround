@@ -74,7 +74,7 @@
                                 Help
                             </div>
                         </a>
-                        <a href="#">
+                        <a href="./php/logout.php">
                             <div class="nav-item">
                                 <img src="./imgs/logout_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Logout
@@ -89,12 +89,13 @@
             </div>
         </div>
     </header>
-    <form action="./php/get_dive_details.php" method="get" class="route-creation-form">
+    <form action="./php/dive.php" method="get" class="route-creation-form">
         <div class="scub-container content-background">
-            <div class="main-header">
-                <h2>Dive Name:</h2>
+            <div class="main-input">
+                <label for="diveName">Dive Name:</label>
+                <input type="text" name="diveName" id="diveName" required>
             </div>
-            <input type="text" name="diveName" id="diveName" class="form-control" required>
+
             <div class="main-header">
                 <h2>Dive type:</h2>
             </div>
