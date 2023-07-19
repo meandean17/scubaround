@@ -1,5 +1,5 @@
 <?php 
-    include "config.php";
+    include "./php2/config.php";
 
     session_start();
     if(!empty($_SESSION["user_id"]))
@@ -18,7 +18,7 @@
             $_SESSION["user_type"] = $row['user_type'];
             $_SESSION["user_img"] = $row['user_img'];
             $_SESSION["login"] = true;   
-            header('Location: ../index.html');
+            header('Location: ./index.php');
         }
         else
         {

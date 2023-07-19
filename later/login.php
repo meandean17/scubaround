@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Authentication successful
         // Redirect the user to their profile page or the main application page
         $_SESSION["user_id"] = $user["user_id"];
-        header("Location: ../index.html");
+        header("Location: ../index.php");
         exit();
     } else {
         // Authentication failed
