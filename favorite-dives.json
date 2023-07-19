@@ -1,0 +1,22 @@
+{
+    "favorites" : [
+        {
+            user_id: 1,
+            favorite_dives: [
+                3, 7
+            ]
+        },
+        {
+            user_id: 2,
+            favorite_dives: [
+                4, 6
+            ]
+        },
+        {
+            user_id: 1,
+            favorite_dives: [
+                2, 8
+            ]
+        }
+    ]
+}
