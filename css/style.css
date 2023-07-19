@@ -183,6 +183,8 @@ a {
 }
 
 .main-header {
+    display: flex;
+    justify-content: space-between;
     border-bottom: 1px solid gray;
     align-items: center;
     margin: 0 0px 12px;
@@ -890,4 +892,18 @@ span a {
 
 .sign-form input {
     line-height: 40px;
+}
+
+/* list search */
+
+.search-form {
+    display: flex;
+    gap: 4px;
+}
+
+.search-form button {
+    width: 40px;
+    background-color: transparent;
+    border: none;
+    color: black;
 }
