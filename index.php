@@ -1,3 +1,13 @@
+<?php
+    include "config.php";
+    session_start(); // start session
+
+    // do check
+    if (!isset($_SESSION["username"])) {
+        header("location: ./php2/login.php");
+        exit; // prevent further execution, should there be more code that follows
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,13 +36,13 @@
                     <span onclick="openNav()" class="hamburger"></span>
                     <div id="mySidenav" class="sidenav">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                        <a href="./home.html">
+                        <a href="./index.html">
                             <div class="nav-item">
                                 <img src="./imgs/home_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Home
                             </div>
                         </a>
-                        <a href="./list.html">
+                        <a href="./list.php">
                             <div class="nav-item">
                                 <img src="./imgs/history_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Dive History
@@ -84,7 +94,7 @@
                         </a>
                     </div>
                 </div>
-                <a href="./home.html"><img src="./imgs/logo.png" alt="scubaround logo" class="logo"></a>
+                <a href="./index.html"><img src="./imgs/logo.png" alt="scubaround logo" class="logo"></a>
             </div>
             <div class="search-and-profile">
                 <img src="./imgs/profile-icon.png" alt="profile logo" class="profile-logo">
@@ -174,7 +184,7 @@
         </div>
         <div class="right-side-home">
             <div class="scub-container content-background home-content-limit">
-                <a href="./list.html">
+                <a href="./list.php">
                     <div class="main-header">
                         <h2>Recent Dives</h2>
                     </div>

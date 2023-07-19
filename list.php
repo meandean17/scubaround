@@ -1,3 +1,14 @@
+<?php
+    include "./php2/config.php";
+    session_start(); // start session
+
+    // check for login
+    if (!isset($_SESSION["username"])) {
+        header("location: ./php2/login.php");
+        exit; // prevent further execution
+    }
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +27,6 @@
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
     <script src="js/index.js" defer></script>
-    <script src="js/list.js" defer></script>
 
 </head>
 
@@ -32,13 +42,13 @@
                     <span onclick="openNav()" class="hamburger"></span>
                     <div id="mySidenav" class="sidenav">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                        <a href="./home.html">
+                        <a href="./index.html">
                             <div class="nav-item">
                                 <img src="./imgs/home_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Home
                             </div>
                         </a>
-                        <a href="./list.html">
+                        <a href="./list.php">
                             <div class="nav-item">
                                 <img src="./imgs/history_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Dive History
@@ -90,7 +100,7 @@
                         </a>
                     </div>
                 </div>
-                <a href="./home.html"><img src="./imgs/logo.png" alt="scubaround logo" class="logo"></a>
+                <a href="./index.html"><img src="./imgs/logo.png" alt="scubaround logo" class="logo"></a>
             </div>
             <div class="search-and-profile">
                 <img src="./imgs/profile-icon.png" alt="profile logo" class="profile-logo">
@@ -104,7 +114,32 @@
                 <h2>Dive History</h2>
             </div>
             <ul id="diveList" class="dive-list">
-                <!-- Dive history items will be dynamically generated here -->
+                <?php
+                     $query = "SELECT dives.dive_name, dives.is_public, details.dive_date, details.dive_duration, dives.dive_description
+                     FROM tbl_226_dives AS dives
+                     INNER JOIN tbl_226_dive_details AS details ON dives.dive_id = details.dive_id
+                     WHERE dives.user_id =  '" . $_SESSION["user_id"] . "'";
+
+                    $result = mysqli_query($connection, $query);
+                    $row = mysqli_fetch_array($result);
+
+                    if(is_array($row))
+                    {
+                        $diveName = $row['dive_name'];
+                        $diveDate = $row['dive_date'];
+                        $diveStatus = $row['is_public'];
+                        $diveDesc = $row['dive_description'];
+                        $diveDur = $row['dive_duration'];
+                        
+                        echo "<a href='./main.html' class='dive-list-item'>";
+                        echo "<div class='dive-name'>" . $diveName . "</div>";
+                        echo "<div class='dive-date'>" . $diveDate . "</div>";
+                        echo "<div class='dive-status " . ($diveStatus ? 'public' : 'private') . "'>" . ($diveStatus ? 'Public' : 'Private') . "</div>";
+                        echo "<div class='dive-duration'>" . $diveDur . "</div>";
+                        echo "<div class='dive-description'>" . ($diveDesc ? $diveDesc : "-") . "</div>";
+                        echo "</a>";
+                    }                    
+                ?>
             </ul>
         </div>
     </div>
