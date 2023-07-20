@@ -48,7 +48,7 @@
     <section class="scub-container content-background sign-form-container">
         <div class="sign-form-header">
             <img src="./imgs/logo.png" alt="scubaround logo" class="logo">
-            <h1>Login</h1>
+            <h1>Sign Up</h1>
         </div>
         <div class="sign-form">
             <form action="#" method="post">
