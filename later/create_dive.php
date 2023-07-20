@@ -157,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="./index.php"><img src="./imgs/logo.png" alt="scubaround logo" class="logo"></a>
             </div>
             <div class="search-and-profile">
-                <img src="./imgs/profile-icon.png" alt="profile logo" class="profile-logo">
+                <a href="./profile.php"><img src="./imgs/profile-icon.png" alt="profile logo" class="profile-logo"></a>
             </div>
         </div>
     </header>
