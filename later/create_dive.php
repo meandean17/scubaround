@@ -1,3 +1,75 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require_once 'config.php';
+
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page or display an error message
+    header("Location: ./login.html");
+    exit();
+}
+
+// Retrieve user ID from session
+$userID = $_SESSION['user_id'];
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the dive name and dive type from the form submission
+    $diveName = $_POST['diveName'];
+    $diveType = $_POST['diveType'];
+
+    try {
+        // Create a PDO instance for database connection
+        $pdo = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Generate random latitude and longitude values within the specified range
+        // $startLat = mt_rand(29000000, 29999999) / 1000000.0; // Example: random latitude between 29.000000 and 29.999999
+        // $startLon = mt_rand(340000000, 349999999) / 1000000.0; // Example: random longitude between 34.000000 and 34.999999
+        // $endLat = mt_rand(29000000, 29999999) / 1000000.0;
+        // $endLon = mt_rand(340000000, 349999999) / 1000000.0;
+
+        // Insert the new dive into tbl_226_dives
+        $query = "INSERT INTO tbl_226_dives (user_id, dive_name, dive_description, is_public) VALUES (:userID, :diveName, NULL, TRUE)";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+        $stmt->bindParam(':diveName', $diveName, PDO::PARAM_STR);
+        $stmt->execute();
+
+        // Get the dive ID of the newly inserted dive
+        $diveID = $pdo->lastInsertId();
+
+        // Insert the dive type into tbl_226_routes
+        $query = "INSERT INTO tbl_226_routes (route_type, start_point_lat, start_point_lon, end_point_lat, end_point_lon) VALUES (:diveType, :startLat, :startLon, :endLat, :endLon)";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':diveType', $diveType, PDO::PARAM_STR);
+        $stmt->bindParam(':startLat', $startLat, PDO::PARAM_STR);
+        $stmt->bindParam(':startLon', $startLon, PDO::PARAM_STR);
+        $stmt->bindParam(':endLat', $endLat, PDO::PARAM_STR);
+        $stmt->bindParam(':endLon', $endLon, PDO::PARAM_STR);
+        $stmt->execute();
+
+        // Update the dive record with the route ID
+        $routeID = $pdo->lastInsertId();
+        $query = "UPDATE tbl_226_dives SET route_id = :routeID WHERE dive_id = :diveID";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':routeID', $routeID, PDO::PARAM_INT);
+        $stmt->bindParam(':diveID', $diveID, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Redirect the user to the dive history page or display a success message
+        header("Location: ./list.php");
+        exit();
+    } catch (PDOException $e) {
+        // Handle database connection errors
+        echo "Database Error: " . $e->getMessage();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,26 +96,26 @@
                     <span onclick="openNav()" class="hamburger"></span>
                     <div id="mySidenav" class="sidenav">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                        <a href="./index.html">
+                        <a href="./index.php">
                             <div class="nav-item">
                                 <img src="./imgs/home_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Home
                             </div>
                         </a>
-                        <a href="./list.html">
+                        <a href="./list.php">
                             <div class="nav-item">
                                 <img src="./imgs/history_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Dive History
                             </div>
                         </a>
-                        <a href="./dive.html">
+                        <a href="./newdive.php">
                             <div class="nav-item">
                                 <img src="./imgs/scuba-dive-icon.png" alt="">
                                 Plan New Dive
                             </div>
                         </a>
                         <div class="nav-item-divider"></div>
-                        <a href="#">
+                        <a href="./friendslist.php">
                             <div class="nav-item">
                                 <img src="./imgs/group_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Friends
@@ -82,19 +154,19 @@
                         </a>
                     </div>
                 </div>
-                <a href="./index.html"><img src="./imgs/logo.png" alt="scubaround logo" class="logo"></a>
+                <a href="./index.php"><img src="./imgs/logo.png" alt="scubaround logo" class="logo"></a>
             </div>
             <div class="search-and-profile">
                 <img src="./imgs/profile-icon.png" alt="profile logo" class="profile-logo">
             </div>
         </div>
     </header>
-    <form action="./php/dive.php" method="get" class="route-creation-form">
+    <form action="" method="post" class="route-creation-form">
         <div class="scub-container content-background">
-            <div class="main-input">
-                <label for="diveName">Dive Name:</label>
-                <input type="text" name="diveName" id="diveName" required>
+            <div class="main-header">
+                <h2>Dive Name:</h2>
             </div>
+            <input type="text" name="diveName" required>
 
             <div class="main-header">
                 <h2>Dive type:</h2>
@@ -146,7 +218,7 @@
 
             </div>
             <div class="scub-container save-dive content-background">
-                <a href=""><button type="submit" class="button">Save</button></a>
+                <button type="submit" class="button">Save</button>
                 <button type="submit" class="button">Save as Draft</button>
             </div>
     </form>

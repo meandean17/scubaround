@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <section class="scub-container content-background sign-form-container">
+        <div class="sign-form-header">
+            <img src="./imgs/logo.png" alt="scubaround logo" class="logo">
+            <h1>Login</h1>
+        </div>
+        <div class="sign-form">
+            <form action="./php/register.php" method="post">
+                <div class="sign-inputs">
+                    <input type="text" id="username" name="username" required placeholder="Username">
+                    <input type="password" id="password" name="password" required placeholder="Password">
+                    <input type="number" id="age" name="age" placeholder="Age">
+                    <input type="email" id="email" name="email" required placeholder="Email">
+                </div>
+
+                <div class="form-button-group">
+                    <a href="./login.html">Login</a>
+                    <button type="submit" class="button">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>
