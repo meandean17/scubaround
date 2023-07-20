@@ -112,9 +112,9 @@ editDiveButton.addEventListener('click', () => {
         diveStatus.style.display = 'block';
         diveStatus.innerHTML = prevStatus;
         diveStatusToggle.style.display = 'none';
-
+    }
+});
     })
-
     // save
     saveDiveButton.addEventListener('click', () => {
         if (!diveTitle.innerHTML) {
@@ -156,10 +156,5 @@ editDiveButton.addEventListener('click', () => {
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("dive_id=" + encodeURIComponent(diveId) + "&dive_name=" + encodeURIComponent(editedTitle) + "&dive_desc=" + encodeURIComponent(editedDesc));
         }
-
-
     })
 });
-
-
-

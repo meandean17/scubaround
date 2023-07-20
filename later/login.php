@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             </div>
                         </a>
                         <div class="nav-item-divider"></div>
-                        <a href="#">
+                        <a href="./friendslist.php">
                             <div class="nav-item">
                                 <img src="../imgs/group_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Friends

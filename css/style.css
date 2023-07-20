@@ -913,6 +913,54 @@ span a {
     color: black;
 }
 
+.friend-name {
+    width: 30%;
+    text-overflow: ellipsis;
+    font-size: 80%;
+    font-weight: 500;
+
+}
+
+.friend-status.online,
+.friend-status.offline 
+{
+    text-align: center;
+    color: #000;
+    font-weight: 500;
+}
+
+.friend-status.online{
+    color: green;
+}
+
+.friend-status.offline{
+    color: lightslategray;
+}
+
+.friend-last-dive{
+    text-align: center;
+    color: #000;
+    font-weight: 500;
+}
+
+.profile-section{
+    background-color: #D9D9D9;
+    width: 33%;
+    align-items: center;
+    display: block;
+}
+
+.profile-section h2{
+    background-color: gray;
+}
+
+.profile-block{
+    display:flex;
+}
+
+.flex-inside{
+    display: flex;
+}
 /* editing a dive */
 
 .edit-dive-form {

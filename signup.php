@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="form-button-group">
-                    <a href="./login.html">Login</a>
+                    <a href="./login.php">Login</a>
                     <button type="submit" class="button">Sign Up</button>
                 </div>
                 <div class="sign-error-msg">
