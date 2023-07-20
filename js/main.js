@@ -24,23 +24,25 @@ function showSlides(n) {
     slides[slideIndex - 1].style.display = "block";
 }
 
-
-
 function onToggleChange() {
     const toggleInput = document.querySelector('.checkbox');
-    if (toggleInput) {
-        localStorage.setItem('toggleState', toggleInput.checked);
+    const diveStatusLabel = document.getElementById('diveStatus');
+    if (toggleInput && diveStatusLabel) {
+        const statusText = toggleInput.checked ? 'Private' : 'Public';
+        diveStatusLabel.innerHTML = statusText;
+        diveStatusLabel.setAttribute('data-status', (toggleInput.checked ? 'Private' : 'Public'));
     }
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
     const toggleInput = document.querySelector('.checkbox');
-    toggleInput.checked = getToggleValue();
+    const diveStatusLabel = document.getElementById('diveStatus');
+    if (toggleInput && diveStatusLabel) {
+        const currentStatus = diveStatusLabel.getAttribute('data-status');
+        toggleInput.checked = (currentStatus == 'Public' ? false : true);
+        diveStatusLabel.innerHTML = currentStatus;
+    }
 });
-
-function getToggleValue() {
-    return localStorage.getItem('toggleState') === "true";
-}
 
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
@@ -56,19 +58,23 @@ function getQueryVariable(variable) {
 
 
 const editDiveButton = document.getElementById('editBtn');
-const saveDiveButton = document.getElementById('saveBtn');
-const cancelDiveButton = document.getElementById('cancelBtn');
 const postDiveButton = document.getElementById('postBtn');
 const shareDiveButton = document.getElementById('shareBtn');
+const saveDiveButton = document.getElementById('saveBtn');
+const cancelDiveButton = document.getElementById('cancelBtn');
+const deleteDiveButton = document.getElementById('deleteBtn');
 
 saveDiveButton.style.display = 'none';
 cancelDiveButton.style.display = 'none';
+deleteDiveButton.style.display = 'none';
 
 const diveDetails = document.querySelector('.text-section p');
 const diveTitle = document.getElementById('dive-object-title');
-const diveStatus = document.querySelector('.item-status');
 const diveStatusToggle = document.querySelector('.status-toggle');
 const editErrorMsg = document.querySelector('.error-msg-box');
+const diveStatus = document.querySelector('#diveStatus');
+
+
 editDiveButton.addEventListener('click', () => {
     // hide irrelevant buttons
     postDiveButton.style.display = 'none';
@@ -78,12 +84,13 @@ editDiveButton.addEventListener('click', () => {
     // show relevant buttons
     saveDiveButton.style.display = 'block';
     cancelDiveButton.style.display = 'block';
+    deleteDiveButton.style.display = 'block';
+
 
     // save old content - incase of cancelation
     const prevDetails = diveDetails.innerHTML;
     const prevTitle = diveTitle.innerHTML;
     const prevStatus = diveStatus.innerHTML;
-
     // make content editable
     diveDetails.contentEditable = true;
     diveDetails.style.backgroundColor = 'white';
@@ -113,46 +120,79 @@ editDiveButton.addEventListener('click', () => {
         diveStatus.innerHTML = prevStatus;
         diveStatusToggle.style.display = 'none';
     })
-    // save
-    saveDiveButton.addEventListener('click', () => {
-        if (!diveTitle.innerHTML) {
-            editErrorMsg.innerHTML = "Dive name cannot be empty";
-            editErrorMsg.style.display = 'block';
-        }
-        else {
-            // get the edited content
-            const editedTitle = diveTitle.innerHTML;
-            const editedDesc = diveDetails.innerHTML;
-
-            // get the dive id from the query string
-            const diveId = getQueryVariable("dive_id");
-            console.log(diveId);
-            // send the edited content to the server using ajax
-            const xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    diveTitle.innerHTML = this.responseText.dive_name;
-                    diveTitle.innerHTML = this.responseText.dive_desc;
-
-                    //show relevant buttons
-                    postDiveButton.style.display = 'block';
-                    shareDiveButton.style.display = 'block';
-                    editDiveButton.style.display = 'block';
-
-                    // hide irrelevant buttons
-                    saveDiveButton.style.display = 'none';
-                    cancelDiveButton.style.display = 'none';
-
-                    // make content uneditable
-                    diveDetails.contentEditable = false;
-                    diveTitle.contentEditable = false;
-                    diveStatus.style.display = 'block';
-                    diveStatusToggle.style.display = 'none';
-                }
-            };
-            xhttp.open("POST", "./php2/edit_dive.php", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("dive_id=" + encodeURIComponent(diveId) + "&dive_name=" + encodeURIComponent(editedTitle) + "&dive_desc=" + encodeURIComponent(editedDesc));
-        }
-    })
 });
+
+saveChanges = () => {
+    if (!diveTitle.innerHTML) {
+        editErrorMsg.innerHTML = "Dive name cannot be empty";
+        editErrorMsg.style.display = 'block';
+    }
+    else {
+        // get the edited content
+        const editedTitle = diveTitle.innerHTML;
+        const editedDesc = diveDetails.innerHTML;
+        const editedStatus = diveStatus.innerHTML;
+        const sanitizedDesc = sanitizeHtml(editedDesc);
+        const sanitizedTitle = sanitizeHtml(editedTitle);
+        // get the dive id from the query string
+        const diveId = getQueryVariable("dive_id");
+        console.log(diveId);
+        // send the edited content to the server using ajax
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.href = window.location.href
+            }
+        };
+        xhttp.open("POST", "./php2/edit_dive.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("dive_id=" + (diveId) + "&dive_name=" + (sanitizedTitle) + "&dive_desc=" + (sanitizedDesc) + "&dive_status=" + (editedStatus));
+    }
+}
+
+const modal = document.getElementById("myModal");
+const closeModal = document.getElementsByClassName("close")[0];
+
+closeModal.onclick = function () {
+    modal.style.display = "none";
+    return;
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+deleteDive = () => {
+    // create modal to verify deletion
+    modal.style.display = "block";
+}
+
+deleteDive2 = () => {
+    // get the dive id from the query string
+    const diveId = getQueryVariable("dive_id");
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // On successful deletion, redirect to the dive list page
+
+            window.location.href = "./list.php";
+        }
+    };
+    xhttp.open("POST", "./php2/delete_dive.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("deleteDive=" + (diveId));
+}
+
+// Function to sanitize the HTML content to remove any potential harmful elements.
+function sanitizeHtml(html) {
+    // Use DOMParser to parse the HTML content and create a sanitized document fragment.
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(html, "text/html");
+    // Extract the sanitized content from the document fragment.
+    return doc.body.textContent;
+}
+
