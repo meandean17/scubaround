@@ -30,7 +30,7 @@ function onToggleChange() {
     if (toggleInput && diveStatusLabel) {
         const statusText = toggleInput.checked ? 'Private' : 'Public';
         diveStatusLabel.innerHTML = statusText;
-        diveStatusLabel.setAttribute('data-status', toggleInput.checked);
+        diveStatusLabel.setAttribute('data-status', (toggleInput.checked ? 'Private' : 'Public'));
     }
 }
 
@@ -38,9 +38,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const toggleInput = document.querySelector('.checkbox');
     const diveStatusLabel = document.getElementById('diveStatus');
     if (toggleInput && diveStatusLabel) {
-        const currentStatus = diveStatusLabel.getAttribute('data-status') === "true";
-        toggleInput.checked = currentStatus;
-        diveStatusLabel.innerHTML = currentStatus ? 'Private' : 'Public';
+        const currentStatus = diveStatusLabel.getAttribute('data-status');
+        toggleInput.checked = (currentStatus == 'Public' ? false : true);
+        diveStatusLabel.innerHTML = currentStatus;
     }
 });
 
@@ -72,7 +72,7 @@ const diveDetails = document.querySelector('.text-section p');
 const diveTitle = document.getElementById('dive-object-title');
 const diveStatusToggle = document.querySelector('.status-toggle');
 const editErrorMsg = document.querySelector('.error-msg-box');
-const diveStatus = document.querySelector('.item-status');
+const diveStatus = document.querySelector('#diveStatus');
 
 
 editDiveButton.addEventListener('click', () => {
@@ -91,7 +91,6 @@ editDiveButton.addEventListener('click', () => {
     const prevDetails = diveDetails.innerHTML;
     const prevTitle = diveTitle.innerHTML;
     const prevStatus = diveStatus.innerHTML;
-    console.log(prevStatus, diveStatusToggle);
     // make content editable
     diveDetails.contentEditable = true;
     diveDetails.style.backgroundColor = 'white';
@@ -100,9 +99,6 @@ editDiveButton.addEventListener('click', () => {
     diveDetails.focus();
     diveStatus.style.display = 'none';
     diveStatusToggle.style.display = 'inline-flex';
-    diveStatusToggle.addEventListener('click', () => {
-
-    })
 
     // cancel
     cancelDiveButton.addEventListener('click', () => {
@@ -123,7 +119,6 @@ editDiveButton.addEventListener('click', () => {
         diveStatus.style.display = 'block';
         diveStatus.innerHTML = prevStatus;
         diveStatusToggle.style.display = 'none';
-        console.log(getToggleValue())
     })
 });
 
@@ -151,7 +146,7 @@ saveChanges = () => {
         };
         xhttp.open("POST", "./php2/edit_dive.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("dive_id=" + (diveId) + "&dive_name=" + (sanitizedTitle) + "&dive_desc=" + (sanitizedDesc) + "dive_status=" + (editedStatus));
+        xhttp.send("dive_id=" + (diveId) + "&dive_name=" + (sanitizedTitle) + "&dive_desc=" + (sanitizedDesc) + "&dive_status=" + (editedStatus));
     }
 }
 

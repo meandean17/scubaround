@@ -14,7 +14,7 @@
         $newStatus = $_POST['dive_status'];
         $diveId = $_POST['dive_id'];
         // Save the edited content to the database or perform any other required actions
-        $query = "UPDATE tbl_226_dives SET dive_name = '" .$newName . "', dive_description= '" . $newDesc . "', is_public='" . ($newStatus == "Public" ? "Public" : "Private") . " WHERE dive_id='" . $diveId . "'";
+        $query = "UPDATE tbl_226_dives SET dive_name = '" .$newName . "', dive_description= '" . $newDesc . "', is_public='" . $newStatus . "' WHERE dive_id='" . $diveId . "'";
 
 
         // Respond with the edited content to update the page

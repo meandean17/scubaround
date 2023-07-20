@@ -138,7 +138,7 @@
                 {
                     echo "<h2 id='dive-object-title'>" . $diveName . "</h2>";
                     echo "<h2>" . $diveDate . "</h3>";
-                    echo "<label class='item-status "  . ($diveStatus ? 'public' : 'private') .  "' id='diveStatus' data-status='" . $diveStatus . "'>" . ($diveStatus ? 'Public' : 'Private') . "</label>";
+                    echo "<label class='item-status "  . ($diveStatus ? 'public' : 'private') .  "' id='diveStatus' data-status='" . ($diveStatus ? 'Public' : 'Private') . "'>" . ($diveStatus ? 'Public' : 'Private') . "</label>";
                     echo "<label class='status-toggle'>";
                     echo "<input type='checkbox' class='checkbox' onchange='onToggleChange()' onload='setToggleValue()'>";
                     echo "<span class='slider'></span>";
