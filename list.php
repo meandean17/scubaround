@@ -16,7 +16,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Object</title>
+    <title>Dive History</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
@@ -125,15 +125,15 @@
                     if(ISSET($_GET['search']))
                         $keyword = $_GET['keyword'];
                     
-                    if($keyword)
+                    if($keyword)    //if search occured
                     {
-                        $query = "SELECT dives.dive_name, dives.is_public, details.dive_date, details.dive_duration, dives.dive_description
+                        $query = "SELECT dives.dive_id, dives.dive_name, dives.is_public, details.dive_date, details.dive_duration, dives.dive_description
                         FROM tbl_226_dives AS dives
                         INNER JOIN tbl_226_dive_details AS details ON dives.dive_id = details.dive_id
                         WHERE dives.user_id =  '" . $_SESSION["user_id"] . "' AND (dives.dive_name LIKE '%" . $keyword . "%')";
                     }
-                    else {
-                        $query = "SELECT dives.dive_name, dives.is_public, details.dive_date, details.dive_duration, dives.dive_description
+                    else {  //if search didnt occur
+                        $query = "SELECT dives.dive_id, dives.dive_name, dives.is_public, details.dive_date, details.dive_duration, dives.dive_description
                         FROM tbl_226_dives AS dives
                         INNER JOIN tbl_226_dive_details AS details ON dives.dive_id = details.dive_id
                         WHERE dives.user_id =  '" . $_SESSION["user_id"] . "'";
@@ -141,13 +141,14 @@
                     $result = mysqli_query($connection, $query);
                     while ($row = mysqli_fetch_assoc($result))
                     {
+                        $diveId = $row['dive_id'];
                         $diveName = $row['dive_name'];
                         $diveDate = $row['dive_date'];
                         $diveStatus = $row['is_public'];
                         $diveDesc = $row['dive_description'];
                         $diveDur = $row['dive_duration'];
                         
-                        echo "<a href='./dive.php' class='dive-list-item'>";
+                        echo "<a href='./dive.php?dive_id='" . $diveId . "'' class='dive-list-item'>";
                         echo "<div class='dive-name'>" . $diveName . "</div>";
                         echo "<div class='dive-date'>" . $diveDate . "</div>";
                         echo "<div class='dive-status " . ($diveStatus ? 'public' : 'private') . "'>" . ($diveStatus ? 'Public' : 'Private') . "</div>";
