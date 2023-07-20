@@ -943,7 +943,7 @@ span a {
 
 .profile-section {
     background-color: #D9D9D9;
-    width: 33%;
+    width: 25%;
     align-items: center;
     display: block;
 }
@@ -952,13 +952,6 @@ span a {
     background-color: gray;
 }
 
-.profile-block {
-    display: flex;
-}
-
-.flex-inside {
-    display: flex;
-}
 
 /* editing a dive */
 
@@ -1020,4 +1013,16 @@ span a {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.profile-block {
+    display: flex;
+}
+
+.profile-block{
+    display:block;
+}
+
+.flexy-flex{
+    display: flex;
 }
