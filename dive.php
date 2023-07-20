@@ -1,11 +1,52 @@
+<?php
+    include "./php2/config.php";
+    session_start(); // start session
+
+    // check for login
+    if (!isset($_SESSION["username"])) {
+        header("location: ./login.php");
+        exit; // prevent further execution
+    }
+    
+    if(isset($_GET))
+    {
+        $diveId = $_GET['dive_id'];
+        $query = "SELECT * FROM tbl_226_dives 
+        INNER JOIN tbl_226_dive_details using (dive_id)
+        WHERE dive_id='" . $diveId . "'";
+
+        $result = mysqli_query($connection, $query);
+        if($result)
+        {
+            $row = mysqli_fetch_array($result);
+
+            $diveName = $row['dive_name'];
+            $diveDesc = $row['dive_description'];
+            $diveStatus = $row['is_public'];
+            $diveDate = $row['dive_date'];
+            $diveDur = $row['dive_duration'];
+            $diveDist = $row['dive_distance'];
+            $diveTemp = $row['dive_temp'];
+            $diveO2 = $row['dive_o2'];
+            $diveMaxDepth = $row['dive_max_depth'];
+            $diveHeart = $row['dive_heartrate'];
+        }
+        else {
+            $row = false;
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Object</title>
+    <title>
+        <?php
+            echo $diveName
+        ?>
+    </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
@@ -92,95 +133,137 @@
     </header>
     <div class="scub-container content-background">
         <div class="main-header scub-row-space-bet">
-            <h2 id="dive-object-title">Mystic Caverns</h2>
-            <h2>18/08/23</h3>
-                <label class="item-status">Private</label>
-                <label class="status-toggle">
-                    <input type="checkbox" class="checkbox" onchange="onToggleChange()" onload="setToggleValue()">
-                    <span class="slider"></span>
-                    <span class="labels" data-on="Private" data-off="Public"></span>
-                </label>
-        </div>
+            <?php
+                if($row)
+                {
+                    echo "<h2 id='dive-object-title'>" . $diveName . "</h2>";
+                    echo "<h2>" . $diveDate . "</h3>";
+                    echo "<label class='item-status "  . ($diveStatus ? 'public' : 'private') .  "'>" . ($diveStatus ? 'Public' : 'Private') . "</label>";
+                    echo "<label class='status-toggle'>";
+                    echo "<input type='checkbox' class='checkbox' onchange='onToggleChange()' onload='setToggleValue()'>";
+                    echo "<span class='slider'></span>";
+                    echo "<span class='labels' data-on='Private' data-off='Public'></span>";
+                    echo "</label>";
+                    echo "</div>";
+                }
+            ?>
+        
         <div class="dive-detail-box">
-            <div class="detail-row">
-                <div class="detail">
-                    <span class="label">Duration:</span>
-                    <span class="value">75 minutes</span>
-                </div>
-                <div class="detail">
-                    <span class="label">Max Depth:</span>
-                    <span class="value">30 meters</span>
-                </div>
-            </div>
-            <div class="detail-row">
-                <div class="detail">
-                    <span class="label">Distance:</span>
-                    <span class="value">10 kilometers</span>
-                </div>
-                <div class="detail">
-                    <span class="label">Avg Depth:</span>
-                    <span class="value">15 meters</span>
-                </div>
-            </div>
-            <div class="detail-row">
-                <div class="detail">
-                    <span class="label">Avg Temp:</span>
-                    <span class="value">25°C</span>
-                </div>
-                <div class="detail">
-                    <span class="label">Max Temp:</span>
-                    <span class="value">28°C</span>
-                </div>
-            </div>
-            <div class="detail-row">
-                <div class="detail">
-                    <span class="label">Oxygen Consumption:</span>
-                    <span class="value">10 liters</span>
-                </div>
-                <div class="detail">
-                    <span class="label">Avg Heart Rate:</span>
-                    <span class="value">120 bpm</span>
-                </div>
-            </div>
+            <?php
+                echo "<div class='detail-row'>";
+                    echo "<div class='detail'>";
+                        echo "<span class='label'>Duration:</span>";
+                        echo "<span class='value'>" . $diveDur . " minutes</span>";
+                    echo "</div>";
+                    echo "<div class='detail'>";
+                        echo "<span class='label'>Max Depth:</span>";
+                        echo "<span class='value'>" . $diveMaxDepth . " meters</span>";
+                    echo "</div>";
+                echo "</div>";
+
+                echo "<div class='detail-row'>";
+                    echo "<div class='detail'>";
+                        echo "<span class='label'>Distance:</span>";
+                        echo "<span class='value'>" . $diveDist . " kilometers</span>";
+                    echo "</div>";
+                    echo "<div class='detail'>";
+                        echo "<span class='label'>Avg Temp:</span>";
+                        echo "<span class='value'>" . $diveTemp . " °C</span>";
+                    echo "</div>";
+                echo "</div>";
+
+                echo "<div class='detail-row'>";
+                    echo "<div class='detail'>";
+                        echo "<span class='label'>Oxygen Consumption:</span>";
+                        echo "<span class='value'>" . $diveO2 . " liters</span>";
+                    echo "</div>";
+                    echo "<div class='detail'>";
+                        echo "<span class='label'>Avg Heart Rate:</span>";
+                        echo "<span class='value'>" . $diveHeart . " bpm</span>";
+                    echo "</div>";
+                echo "</div>";
+            ?>
         </div>
-        <div class="text-section">
-            <p>I ventured into a mysterious underwater cave system, my
-                flashlight
-                illuminating the dark passages. The cave walls were adorned with breathtaking stalactite
-                formations, and the water sparkled with bioluminescent creatures. I was amazed by the
-                graceful
-                shark that swam past me, seemingly at home in this otherworldly realm.</p>
-        </div>
-        <div class="main-header">
-            <h2>Dive Gallery</h2>
-        </div>
-        <div class="container-slides">
-            <div class="mySlides">
-                <div class="numbertext">1 / 3</div>
-                <img src="./imgs/dive.jpg" style="width:100%">
-            </div>
-            <div class="mySlides">
-                <div class="numbertext">2 / 3</div>
-                <img src="./imgs/shark.jpg" style="width:100%">
-            </div>
-            <div class="mySlides">
-                <div class="numbertext">3 / 3</div>
-                <img src="./imgs/jellyfish.jpg" style="width:100%">
-            </div>
-            <div class="arrows">
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
-            </div>
-            <!-- Image text -->
-            <div class="caption-container">
-                <p id="caption"></p>
-            </div>
-        </div>
+        <?php
+            echo "<div class='text-section'>";
+            echo "<p class='dive-desc'>" . $diveDesc . "</p>";
+            echo "</div>";
+        ?>
+        <?php
+            echo "<div class='main-header'>";
+            echo "<h2>Dive Gallery</h2>";
+            echo "</div>";
+        ?>
+        <?php
+            $query = "SELECT * from tbl_226_dive_images WHERE dive_id='" . $diveId . "'";
+            $result = mysqli_query($connection, $query);
+
+            while($row = mysqli_fetch_assoc($result))
+            {   
+                $imgUrl = $row['img_src'];
+                $i = 1;
+                $total = mysqli_num_rows($result);
+                echo "<div class='container-slides'>";
+                echo "<div class='mySlides'>";
+                echo "<div class='numbertext'>" . $i . '/' . $total . "</div>";
+                echo "<img src='" . $imgUrl . "' style='width:100%'>";
+                echo "</div>";
+                $i++;
+            }
+        ?>
         <div class="dive-object-options scub-row-space-bet">
-            <button class="button">Edit</button>
-            <button class="button">Post</button>
-            <button class="button">Share</button>
+            <button class="button" name='edit' id="editBtn">Edit</button>
+            <button class="button alter-dive-btn" name='save' id='saveBtn'>Save</button>
+            <button class="button alter-dive-btn" name='cancel' id='cancelBtn'>Cancel</button>
+            <button class="button share-dive-btn" id='postBtn'>Post</button>
+            <button class="button share-dive-btn" id='shareBtn'>Share</button>
         </div>
+        <div class="error-msg-box">
+            
+        </div>
+        <?php
+            // if(isset($_POST))
+            // {
+            //     if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   
+            //         $url = "https://";   
+            //     else  
+            //         $url = "http://";   
+            //     // Append the host(domain name, ip) to the URL.   
+            //     $url.= $_SERVER['HTTP_HOST'];   
+                
+            //     // Append the requested resource location to the URL   
+            //     $url.= $_SERVER['REQUEST_URI'];    
+                
+            //     $opts = array( 'http'=>array( 'method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: ".session_name()."=".session_id()."\r\n" ) );
+            //     $context = stream_context_create($opts);
+            //     session_write_close();   // this is the key
+            //     $page = file_get_contents($url, false, $context);
+
+
+            //     libxml_use_internal_errors(true);
+            //     $doc = new DOMDocument;
+            //     $doc->loadHTML($page);
+            //     $xpath = new DOMXpath( $doc);
+
+            //     // fetching the text in the description paragraph
+            //     $newDesc = $xpath->query('//a[@class="dive-desc"]')->item(0);
+            //     $newName = $xpath->query('//h2[@id="dive-object-title"]')->item(0);
+            //     $newStatus = $xpath->query('//input[@class="checkbox"]')->item(0);
+                
+            //     // echo $newDesc->textContent; // This will print **GET THIS TEXT*
+            //     // echo $newName->textContent;
+            //     // echo ($newStatus->getAttribute('checked') ? "yes" : "no");
+            //     // echo "dn";
+            //     $query2 = "UPDATE tbl_226_dives SET dive_name ='" . ($newName->textContent ? $newName->textContent : "unnamed dive")  ."', dive_description =' " . ($newDesc->textContent ? $newDesc->textContent : "-")  . "', is_public='" . ($newStatus->getAttribute('checked') ? "true" : "false") . "' WHERE dive_id=" . $diveId . "";
+            //     $result = mysqli_query($connection, $query);
+
+            //     if(!$result)
+            //     {
+            //         echo "Database error";
+            //     }
+
+            // }
+        ?>
 
 </body>
 
