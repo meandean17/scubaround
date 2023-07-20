@@ -56,7 +56,7 @@
                     <input type="password" id="password" name="password" placeholder="Password">
                 </div>
                 <div class="form-button-group">
-                    <a href="./signup.html">Sign Up</a>
+                    <a href="./signup.php">Sign Up</a>
                     <button type="submit" class="button">Login</button>
                 </div>
                 <div class="sign-error-msg">

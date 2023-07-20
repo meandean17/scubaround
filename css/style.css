@@ -125,7 +125,7 @@ a {
     background-color: #E1E1E1;
 }
 
-.dive-list li:nth-child(even) {
+.dive-list a:nth-child(even) {
     background-color: #D9D9D9;
 }
 
@@ -907,3 +907,30 @@ span a {
     border: none;
     color: black;
 }
+
+.friend-name {
+    width: 30%;
+    text-overflow: ellipsis;
+    font-size: 80%;
+    font-weight: 500;
+
+}
+
+.friend-status.online,
+.friend-status.offline 
+{
+    background-image: none;
+    border-radius: 3px;
+    text-align: center;
+    color: #000;
+    font-weight: 500;
+}
+
+.friend-status.online{
+    color: green;
+}
+
+.friend-status.offline{
+    color: lightslategray;
+}
+
