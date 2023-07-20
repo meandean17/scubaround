@@ -7,6 +7,8 @@
         header("location: .login.php");
         exit; // prevent further execution, should there be more code that follows
     }
+
+       
 ?>
 
 <!DOCTYPE html>
@@ -190,8 +192,44 @@
                         <h2>Recent Dives</h2>
                     </div>
                 </a>
-                <a href="./dive.php">
-                    <div class="recent-dive-area">
+                    <?php
+                        $query = "SELECT dives.dive_id, dives.dive_name, dives.is_public, details.dive_date, details.dive_duration, dives.dive_description
+                        FROM tbl_226_dives AS dives
+                        INNER JOIN tbl_226_dive_details AS details ON dives.dive_id = details.dive_id
+                        WHERE dives.user_id =  '" . $_SESSION["user_id"] . "'";
+                  
+                    $result = mysqli_query($connection, $query);
+                    if(!mysqli_num_rows($result))
+                    {
+                        echo "<div class='recent-dive-area' style='justify-content:center'>No dives found</div>";
+                    }
+                    else {
+                        
+                        while ($row = mysqli_fetch_assoc($result))
+                        {
+                            $diveId = $row['dive_id'];
+                            $diveName = $row['dive_name'];
+                            $diveDate = $row['dive_date'];
+                            $diveStatus = $row['is_public'];
+                            $diveDesc = $row['dive_description'];
+                            $diveDur = $row['dive_duration'];
+
+                            echo "<div class = 'recent-dive-area'>";
+                                echo '<a href="./dive.php?dive_id=' . $diveId . '">';
+                                    echo "<div class = recent-dive-header";
+                                        echo "<h3>" . $diveName . "</h3>";
+                                        echo "</a>";
+                                        echo "<span>" . $diveDate . "</span>";
+                                    echo "</div>";
+                                echo "<div class='recent-dive-content'>";
+                                    echo "<p>" . ($diveDesc ? $diveDesc : "-") ."</p>";
+                                echo "</div>";
+                            echo"</div>";  
+                        } 
+                                      
+                    }
+                    ?>
+                    <!-- <div class="recent-dive-area">
                         <div class="recent-dive-header">
                             <h3>Mystic Caverns</h3>
                             <span>18/08/23</span>
@@ -249,7 +287,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </body>
 
 </html>

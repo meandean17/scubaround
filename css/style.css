@@ -642,6 +642,10 @@ a {
     gap: 16px;
     text-overflow: clip;
 }
+.recent-dive-area a{
+    text-decoration: none;
+    color:#000;
+}
 
 .recent-dive-header h3 {
     font-size: 15px;

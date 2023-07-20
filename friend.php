@@ -199,9 +199,8 @@ $resultCommonFriends = mysqli_query($connection, $queryCommonFriends);
             </div>
                 <!-- --------- -->
     </div>
-    <div class="button">
-    <button onclick="showConfirmation()">Remove Friend</button>
-</div>
+    <button class="button" onclick="showConfirmation()">Remove Friend</button>
+
 
 <!-- Lightbox for confirmation -->
 <div id="confirmationBox" class="lightbox" style="display: none;">
