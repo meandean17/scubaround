@@ -10,7 +10,9 @@
     if(isset($_GET))
     {
         $userID = $_GET['user_id'];
-        $query = "SELECT * from tbl_226_users"
+        $queryUser = "SELECT username, email, age FROM tbl_226_users WHERE user_id = $userID";
+        $resultUser = mysqli_query($connection, $queryUser);
+        $userInfo = mysqli_fetch_assoc($resultUser);
     }
 ?> 
 <!DOCTYPE html>
@@ -114,10 +116,24 @@
         </div>
     </header>
 
-    <div class="scub-container content-background">
+<div class="scub-container content-background">
 
+    <div class="main-header">
+        <div class="profile-section">
+            <div class="profile-block">
+                <h2>User Information</h2>
+                <p>Username: <?php echo $userInfo['username']; ?></p>
+                <p>Email: <?php echo $userInfo['email']; ?></p>
+                <p>Age: <?php echo $userInfo['age']; ?></p>
+                <!-- Add more user information if needed -->
+            </div>
+        </div>
+        
     </div>
-    
+
+</div>
+        
+   
    
 
 </body>

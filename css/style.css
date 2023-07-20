@@ -953,3 +953,6 @@ span a {
     display:flex;
 }
 
+.flex-inside{
+    display: flex;
+}

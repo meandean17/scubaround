@@ -70,13 +70,3 @@ editDiveButton.addEventListener('click', () => {
     }
 });
 
-function editDive() {
-    document.getElementById("diveName").value = "Mystic Caverns";
-    document.getElementById("diveDescription").value = "Description of the dive";
-    document.getElementById("isPublic").checked = false;
-    document.getElementById("editForm").style.display = "block";
-}
-
-function cancelEdit() {
-    document.getElementById("editForm").style.display = "none";
-}

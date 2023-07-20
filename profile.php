@@ -115,7 +115,7 @@
             $userID = $_SESSION['user_id'];
             $query = "SELECT * FROM tbl_226_users WHERE user_id = ?";
             $stmt = $connection->prepare($query);
-            $stmt->bind_param("i", $userID);
+            $stmt->bind_param("i", $userID); // i = int (cause user_id is int)
             $stmt->execute();
             $result = $stmt->get_result();
             $row = $result->fetch_assoc();
