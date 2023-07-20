@@ -138,7 +138,7 @@
                 {
                     echo "<h2 id='dive-object-title'>" . $diveName . "</h2>";
                     echo "<h2>" . $diveDate . "</h3>";
-                    echo "<label class='item-status "  . ($diveStatus ? 'public' : 'private') .  "'>" . ($diveStatus ? 'Public' : 'Private') . "</label>";
+                    echo "<label class='item-status "  . ($diveStatus ? 'public' : 'private') .  "' id='diveStatus' data-status='" . $diveStatus . "'>" . ($diveStatus ? 'Public' : 'Private') . "</label>";
                     echo "<label class='status-toggle'>";
                     echo "<input type='checkbox' class='checkbox' onchange='onToggleChange()' onload='setToggleValue()'>";
                     echo "<span class='slider'></span>";
@@ -213,13 +213,25 @@
         ?>
         <div class="dive-object-options scub-row-space-bet">
             <button class="button" name='edit' id="editBtn">Edit</button>
-            <button class="button alter-dive-btn" name='save' id='saveBtn'>Save</button>
-            <button class="button alter-dive-btn" name='cancel' id='cancelBtn'>Cancel</button>
             <button class="button share-dive-btn" id='postBtn'>Post</button>
             <button class="button share-dive-btn" id='shareBtn'>Share</button>
+            <button class="button alter-dive-btn" onclick="saveChanges()" name='save' id='saveBtn'>Save</button>
+            <button class="button alter-dive-btn" onclick="deleteDive()" name='delete' id='deleteBtn'>Delete</button>
+            <button class="button alter-dive-btn" name='cancel' id='cancelBtn'>Cancel</button>
+
         </div>
         <div class="error-msg-box">
             
+        </div>
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-close-and-dialogue">
+                    <p>Are you sure you want to delete this dive?</p>
+                    <span class="close">&times;</span>
+                </div>
+                <button class="button delete-dive-btn" onclick="deleteDive2()" name='confirmDelete' id='deleteBtn2'>Delete</button>
+            </div>
         </div>
         <?php
             // if(isset($_POST))
