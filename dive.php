@@ -1,11 +1,52 @@
+<?php
+    include "./php2/config.php";
+    session_start(); // start session
+
+    // check for login
+    if (!isset($_SESSION["username"])) {
+        header("location: ./login.php");
+        exit; // prevent further execution
+    }
+    
+    if(isset($_GET))
+    {
+        $diveId = $_GET['dive_id'];
+        $query = "SELECT * FROM tbl_226_dives 
+        INNER JOIN tbl_226_dive_details using (dive_id)
+        WHERE dive_id='" . $diveId . "'";
+
+        $result = mysqli_query($connection, $query);
+        if($result)
+        {
+            $row = mysqli_fetch_array($result);
+
+            $diveName = $row['dive_name'];
+            $diveDesc = $row['dive_description'];
+            $diveStatus = $row['is_public'];
+            $diveDate = $row['dive_date'];
+            $diveDur = $row['dive_duration'];
+            $diveDist = $row['dive_distance'];
+            $diveTemp = $row['dive_temp'];
+            $diveO2 = $row['dive_o2'];
+            $diveMaxDepth = $row['dive_max_depth'];
+            $diveHeart = $row['dive_heartrate'];
+        }
+        else {
+            $row = false;
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Object</title>
+    <title>
+        <?php
+            echo $diveName
+        ?>
+    </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
@@ -92,14 +133,20 @@
     </header>
     <div class="scub-container content-background">
         <div class="main-header scub-row-space-bet">
-            <h2 id="dive-object-title">Mystic Caverns</h2>
-            <h2>18/08/23</h3>
-                <label class="item-status">Private</label>
-                <label class="status-toggle">
-                    <input type="checkbox" class="checkbox" onchange="onToggleChange()" onload="setToggleValue()">
-                    <span class="slider"></span>
-                    <span class="labels" data-on="Private" data-off="Public"></span>
-                </label>
+            <?php
+                if($row)
+                {
+                    echo "<h2 id='dive-object-title'>" . $diveName . "</h2>";
+                    echo "<h2>" . $diveDate . "</h3>";
+                    echo "<label class='item-status'>" . ($diveStatus) ? 'Public' : 'Private' . "</label>";
+                    echo "<label class='status-toggle'>";
+                    echo "<input type='checkbox' class='checkbox' onchange='onToggleChange()' onload='setToggleValue()'>";
+                    echo "<span class='slider'></span>";
+                    echo "<span class='labels' data-on='Private' data-off='Public'></span>";
+                    echo "</label>";
+                    echo "";
+                }
+            ?>
         </div>
         <div class="dive-detail-box">
             <div class="detail-row">

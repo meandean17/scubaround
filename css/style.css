@@ -595,8 +595,6 @@ a {
     gap: 16px;
 }
 
-.conditions-area {}
-
 .home-content-limit {
     max-height: 500px;
     overflow: hidden;
