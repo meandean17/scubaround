@@ -115,7 +115,7 @@
             <div class="main-header">
                 <h2>Dive History</h2>
                 <form action="#" method="get" class="search-form">
-                    <input type="search" class="form-control search-bar" placeholder="Search here..." name="keyword" required="required" value="<?php echo isset($_POST['keyword']) ? $_POST['keyword'] : '' ?>"/>
+                    <input type="search" class="form-control search-bar" placeholder="Search here..." name="keyword" value="<?php echo isset($_POST['keyword']) ? $_POST['keyword'] : '' ?>"/>
                     <button class="btn btn-primary search-btn" name="search">&#x1F50E;&#xFE0E;</button>
                 </form>
             </div>
@@ -139,23 +139,29 @@
                         WHERE dives.user_id =  '" . $_SESSION["user_id"] . "'";
                     }
                     $result = mysqli_query($connection, $query);
-                    while ($row = mysqli_fetch_assoc($result))
+                    if(!mysqli_num_rows($result))
                     {
-                        $diveId = $row['dive_id'];
-                        $diveName = $row['dive_name'];
-                        $diveDate = $row['dive_date'];
-                        $diveStatus = $row['is_public'];
-                        $diveDesc = $row['dive_description'];
-                        $diveDur = $row['dive_duration'];
-                        
-                        echo '<a href="./dive.php?dive_id=' . $diveId . '" class="dive-list-item">';
-                        echo "<div class='dive-name'>" . $diveName . "</div>";
-                        echo "<div class='dive-date'>" . $diveDate . "</div>";
-                        echo "<div class='dive-status " . ($diveStatus ? 'public' : 'private') . "'>" . ($diveStatus ? 'Public' : 'Private') . "</div>";
-                        echo "<div class='dive-duration'>" . $diveDur . "</div>";
-                        echo "<div class='dive-description'>" . ($diveDesc ? $diveDesc : "-") . "</div>";
-                        echo "</a>";
-                    }                    
+                        echo "<div class='dive-list-item' style='justify-content:center'>No dives found</div>";
+                    }
+                    else {
+                        while ($row = mysqli_fetch_assoc($result))
+                        {
+                            $diveId = $row['dive_id'];
+                            $diveName = $row['dive_name'];
+                            $diveDate = $row['dive_date'];
+                            $diveStatus = $row['is_public'];
+                            $diveDesc = $row['dive_description'];
+                            $diveDur = $row['dive_duration'];
+                            
+                            echo '<a href="./dive.php?dive_id=' . $diveId . '" class="dive-list-item">';
+                            echo "<div class='dive-name'>" . $diveName . "</div>";
+                            echo "<div class='dive-date'>" . $diveDate . "</div>";
+                            echo "<div class='dive-status " . ($diveStatus ? 'public' : 'private') . "'>" . ($diveStatus ? 'Public' : 'Private') . "</div>";
+                            echo "<div class='dive-duration'>" . $diveDur . "</div>";
+                            echo "<div class='dive-description'>" . ($diveDesc ? $diveDesc : "-") . "</div>";
+                            echo "</a>";
+                        }                    
+                    }
                 ?>
             </ul>
         </div>

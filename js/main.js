@@ -112,8 +112,6 @@ editDiveButton.addEventListener('click', () => {
         diveStatus.style.display = 'block';
         diveStatus.innerHTML = prevStatus;
         diveStatusToggle.style.display = 'none';
-    }
-});
     })
     // save
     saveDiveButton.addEventListener('click', () => {
