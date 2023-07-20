@@ -937,3 +937,19 @@ span a {
     color: #000;
     font-weight: 500;
 }
+
+.profile-section{
+    background-color: #D9D9D9;
+    width: 33%;
+    align-items: center;
+    display: block;
+}
+
+.profile-section h2{
+    background-color: gray;
+}
+
+.profile-block{
+    display:flex;
+}
+
