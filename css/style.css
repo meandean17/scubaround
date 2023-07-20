@@ -197,10 +197,18 @@ a {
 }
 
 .item-status {
-    background-color: #d10000;
+    background-color: #898686;
     border-radius: 3px;
     padding: 2px 8px;
     font-weight: bold;
+}
+
+.item-status.public {
+    background-color: #169601;
+}
+
+.item-status.private {
+    background-color: #d10000;
 }
 
 .section {

@@ -138,74 +138,80 @@
                 {
                     echo "<h2 id='dive-object-title'>" . $diveName . "</h2>";
                     echo "<h2>" . $diveDate . "</h3>";
-                    echo "<label class='item-status'>" . ($diveStatus) ? 'Public' : 'Private' . "</label>";
+                    echo "<label class='item-status "  . ($diveStatus ? 'public' : 'private') .  "'>" . ($diveStatus ? 'Public' : 'Private') . "</label>";
                     echo "<label class='status-toggle'>";
                     echo "<input type='checkbox' class='checkbox' onchange='onToggleChange()' onload='setToggleValue()'>";
                     echo "<span class='slider'></span>";
                     echo "<span class='labels' data-on='Private' data-off='Public'></span>";
                     echo "</label>";
-                    echo "";
+                    echo "</div>";
                 }
             ?>
-        </div>
+        
         <div class="dive-detail-box">
-            <div class="detail-row">
-                <div class="detail">
-                    <span class="label">Duration:</span>
-                    <span class="value">75 minutes</span>
-                </div>
-                <div class="detail">
-                    <span class="label">Max Depth:</span>
-                    <span class="value">30 meters</span>
-                </div>
-            </div>
-            <div class="detail-row">
-                <div class="detail">
-                    <span class="label">Distance:</span>
-                    <span class="value">10 kilometers</span>
-                </div>
-                <div class="detail">
-                    <span class="label">Avg Depth:</span>
-                    <span class="value">15 meters</span>
-                </div>
-            </div>
-            <div class="detail-row">
-                <div class="detail">
-                    <span class="label">Avg Temp:</span>
-                    <span class="value">25°C</span>
-                </div>
-                <div class="detail">
-                    <span class="label">Max Temp:</span>
-                    <span class="value">28°C</span>
-                </div>
-            </div>
-            <div class="detail-row">
-                <div class="detail">
-                    <span class="label">Oxygen Consumption:</span>
-                    <span class="value">10 liters</span>
-                </div>
-                <div class="detail">
-                    <span class="label">Avg Heart Rate:</span>
-                    <span class="value">120 bpm</span>
-                </div>
-            </div>
+            <?php
+                echo "<div class='detail-row'>";
+                    echo "<div class='detail'>";
+                        echo "<span class='label'>Duration:</span>";
+                        echo "<span class='value'>" . $diveDur . " minutes</span>";
+                    echo "</div>";
+                    echo "<div class='detail'>";
+                        echo "<span class='label'>Max Depth:</span>";
+                        echo "<span class='value'>" . $diveMaxDepth . " meters</span>";
+                    echo "</div>";
+                echo "</div>";
+
+                echo "<div class='detail-row'>";
+                    echo "<div class='detail'>";
+                        echo "<span class='label'>Distance:</span>";
+                        echo "<span class='value'>" . $diveDist . " kilometers</span>";
+                    echo "</div>";
+                    echo "<div class='detail'>";
+                        echo "<span class='label'>Avg Temp:</span>";
+                        echo "<span class='value'>" . $diveTemp . " °C</span>";
+                    echo "</div>";
+                echo "</div>";
+
+                echo "<div class='detail-row'>";
+                    echo "<div class='detail'>";
+                        echo "<span class='label'>Oxygen Consumption:</span>";
+                        echo "<span class='value'>" . $diveO2 . " liters</span>";
+                    echo "</div>";
+                    echo "<div class='detail'>";
+                        echo "<span class='label'>Avg Heart Rate:</span>";
+                        echo "<span class='value'>" . $diveHeart . " bpm</span>";
+                    echo "</div>";
+                echo "</div>";
+            ?>
         </div>
-        <div class="text-section">
-            <p>I ventured into a mysterious underwater cave system, my
-                flashlight
-                illuminating the dark passages. The cave walls were adorned with breathtaking stalactite
-                formations, and the water sparkled with bioluminescent creatures. I was amazed by the
-                graceful
-                shark that swam past me, seemingly at home in this otherworldly realm.</p>
-        </div>
-        <div class="main-header">
-            <h2>Dive Gallery</h2>
-        </div>
-        <div class="container-slides">
-            <div class="mySlides">
-                <div class="numbertext">1 / 3</div>
-                <img src="./imgs/dive.jpg" style="width:100%">
-            </div>
+        <?php
+            echo "<div class='text-section'>";
+            echo "<p>" . $diveDesc . "</p>";
+            echo "</div>";
+        ?>
+        <?php
+            echo "<div class='main-header'>";
+            echo "<h2>Dive Gallery</h2>";
+            echo "</div>";
+        ?>
+        <?php
+            $query = "SELECT * from tbl_226_dive_images WHERE dive_id='" . $diveId . "'";
+            $result = mysqli_query($connection, $query);
+
+            while($row =mysqli_fetch_assoc($result))
+            {   
+                $imgUrl = $row['img_src'];
+                $i = 1;
+                $total = mysqli_num_rows($result);
+                echo "<div class='container-slides'>";
+                echo "<div class='mySlides'>";
+                echo "<div class='numbertext'>" . $i . '/' . $total . "</div>";
+                echo "<img src='" . $imgUrl . "' style='width:100%'>";
+                echo "</div>";
+                $i++;
+            }
+        ?>
+<!--             
             <div class="mySlides">
                 <div class="numbertext">2 / 3</div>
                 <img src="./imgs/shark.jpg" style="width:100%">
@@ -217,7 +223,7 @@
             <div class="arrows">
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
-            </div>
+            </div> -->
             <!-- Image text -->
             <div class="caption-container">
                 <p id="caption"></p>

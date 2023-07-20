@@ -3,7 +3,10 @@
 
     session_start();
     if(!empty($_SESSION["user_id"]))
+    {
         session_destroy();
+        $connection -> close();
+    }
 
     if(!empty($_POST["username"])) {
         $query = "SELECT * FROM tbl_226_users WHERE username = '" . $_POST["username"] . "' AND password = '" . $_POST["password"] . "'";
