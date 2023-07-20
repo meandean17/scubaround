@@ -641,9 +641,10 @@ a {
     gap: 16px;
     text-overflow: clip;
 }
-.recent-dive-area a{
+
+.recent-dive-area a {
     text-decoration: none;
-    color:#000;
+    color: #000;
 }
 
 .recent-dive-header h3 {
@@ -806,7 +807,13 @@ span a {
     display: block;
 }
 
-.profile-margin {}
+.profile-block p .offline {
+    color: gray;
+}
+
+.profile-block p .online {
+    color: #169601;
+}
 
 .profile-section h2 {
     background-color: gray;

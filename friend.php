@@ -163,18 +163,14 @@ $resultCommonFriends = mysqli_query($connection, $queryCommonFriends);
             </div>
     <div class="main-header">Mutual Friends</div>
         <div class="profile-block">
-            <?php while ($rowFriend = mysqli_fetch_assoc($resultCommonFriends)) { ?>
-                <?php
+            <?php while ($rowFriend = mysqli_fetch_assoc($resultCommonFriends)) { 
                 // Determine the color based on the friend's online status
-                $statusColor = ($rowFriend['is_online'] == 1) ? 'green' : 'red';
-                ?>
-                <p>
-                    <span style="color: <?php echo $statusColor; ?>;"><?php echo $rowFriend['username']; ?></span>
-                </p>
-            <?php  ?>
-    </div>
-        <div class="button">
-        <button onclick="showConfirmation()">Remove Friend</button>
+                $statusColor = ($rowFriend['is_online']) ? 'online' : 'offline';
+                echo "<p>";
+                    echo '<span class="' . $statusColor . '">' . $rowFriend['username'] . '</span>';
+                echo "</p>";
+            }
+              ?>
     </div>
     <button class="button" onclick="showConfirmation()">Remove Friend</button>
 

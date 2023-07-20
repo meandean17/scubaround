@@ -110,7 +110,8 @@ try {
     $stmt->execute();
 
     // Handle any further processing or redirection as required
-    // ...
+    header("Location: ../list.php");
+            exit();
 } catch (PDOException $e) {
     // Handle database connection errors
     echo "Database Error: " . $e->getMessage();
