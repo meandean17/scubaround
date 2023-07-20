@@ -186,7 +186,7 @@
         </div>
         <?php
             echo "<div class='text-section'>";
-            echo "<p>" . $diveDesc . "</p>";
+            echo "<p class='dive-desc'>" . $diveDesc . "</p>";
             echo "</div>";
         ?>
         <?php
@@ -198,7 +198,7 @@
             $query = "SELECT * from tbl_226_dive_images WHERE dive_id='" . $diveId . "'";
             $result = mysqli_query($connection, $query);
 
-            while($row =mysqli_fetch_assoc($result))
+            while($row = mysqli_fetch_assoc($result))
             {   
                 $imgUrl = $row['img_src'];
                 $i = 1;
@@ -211,29 +211,59 @@
                 $i++;
             }
         ?>
-<!--             
-            <div class="mySlides">
-                <div class="numbertext">2 / 3</div>
-                <img src="./imgs/shark.jpg" style="width:100%">
-            </div>
-            <div class="mySlides">
-                <div class="numbertext">3 / 3</div>
-                <img src="./imgs/jellyfish.jpg" style="width:100%">
-            </div>
-            <div class="arrows">
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
-            </div> -->
-            <!-- Image text -->
-            <div class="caption-container">
-                <p id="caption"></p>
-            </div>
-        </div>
         <div class="dive-object-options scub-row-space-bet">
-            <button class="button">Edit</button>
-            <button class="button">Post</button>
-            <button class="button">Share</button>
+            <button class="button" name='edit' id="editBtn">Edit</button>
+            <button class="button alter-dive-btn" name='save' id='saveBtn'>Save</button>
+            <button class="button alter-dive-btn" name='cancel' id='cancelBtn'>Cancel</button>
+            <button class="button share-dive-btn" id='postBtn'>Post</button>
+            <button class="button share-dive-btn" id='shareBtn'>Share</button>
         </div>
+        <div class="error-msg-box">
+            
+        </div>
+        <?php
+            // if(isset($_POST))
+            // {
+            //     if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   
+            //         $url = "https://";   
+            //     else  
+            //         $url = "http://";   
+            //     // Append the host(domain name, ip) to the URL.   
+            //     $url.= $_SERVER['HTTP_HOST'];   
+                
+            //     // Append the requested resource location to the URL   
+            //     $url.= $_SERVER['REQUEST_URI'];    
+                
+            //     $opts = array( 'http'=>array( 'method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: ".session_name()."=".session_id()."\r\n" ) );
+            //     $context = stream_context_create($opts);
+            //     session_write_close();   // this is the key
+            //     $page = file_get_contents($url, false, $context);
+
+
+            //     libxml_use_internal_errors(true);
+            //     $doc = new DOMDocument;
+            //     $doc->loadHTML($page);
+            //     $xpath = new DOMXpath( $doc);
+
+            //     // fetching the text in the description paragraph
+            //     $newDesc = $xpath->query('//a[@class="dive-desc"]')->item(0);
+            //     $newName = $xpath->query('//h2[@id="dive-object-title"]')->item(0);
+            //     $newStatus = $xpath->query('//input[@class="checkbox"]')->item(0);
+                
+            //     // echo $newDesc->textContent; // This will print **GET THIS TEXT*
+            //     // echo $newName->textContent;
+            //     // echo ($newStatus->getAttribute('checked') ? "yes" : "no");
+            //     // echo "dn";
+            //     $query2 = "UPDATE tbl_226_dives SET dive_name ='" . ($newName->textContent ? $newName->textContent : "unnamed dive")  ."', dive_description =' " . ($newDesc->textContent ? $newDesc->textContent : "-")  . "', is_public='" . ($newStatus->getAttribute('checked') ? "true" : "false") . "' WHERE dive_id=" . $diveId . "";
+            //     $result = mysqli_query($connection, $query);
+
+            //     if(!$result)
+            //     {
+            //         echo "Database error";
+            //     }
+
+            // }
+        ?>
 
 </body>
 
