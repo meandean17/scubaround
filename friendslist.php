@@ -117,11 +117,13 @@
     <ul id="diveList" class="dive-list">
         
     <?php
-                   $user1_id = $_SESSION['user_id'];
-                   $query = "SELECT tbl_226_users.username, tbl_226_friendship.is_online
+                   $userID = $_SESSION['user_id'];
+                   $query = "SELECT tbl_226_users.username,tbl_226_friendship.user1_id, tbl_226_friendship.user2_id, tbl_226_friendship.is_online
                            FROM tbl_226_friendship
                            INNER JOIN tbl_226_users ON tbl_226_friendship.user2_id = tbl_226_users.user_id
-                           WHERE tbl_226_friendship.user1_id = $user1_id";
+                           WHERE tbl_226_friendship.user1_id = $userID OR tbl_226_friendship.user2_id = $userID";
+
+                   
 
                     $result = mysqli_query($connection, $query);
                     
@@ -131,7 +133,27 @@
                         $is_online = $row['is_online'];
                         echo "<a href='./profile.php' class='dive-list-item'>";
                         echo "<div class='friend-name'>" . $friendName . "</div>";
+
+                        
+                        $targetUserId = ($row['user1_id'] == $userID) ? $row['user2_id'] : $row['user1_id'];
+
+                       
+                        $query2 = "SELECT tbl_226_dive_details.dive_date 
+                                   FROM tbl_226_dive_details
+                                   INNER JOIN tbl_226_dives USING(dive_id)
+                                   INNER JOIN tbl_226_users ON tbl_226_dives.user_id = tbl_226_users.user_id
+                                   WHERE tbl_226_users.user_id = $targetUserId and tbl_226_dives.is_public = true  ORDER BY tbl_226_dive_details.dive_date DESC LIMIT 1";
+
+                        $result2 = mysqli_query($connection, $query2);
+                        
+                        // $last_dive = mysqli_fetch_assoc($result2);
+                        $diveDate = "  -";
+                        if($last_dive = mysqli_fetch_array($result2))
+                            $diveDate = $last_dive['dive_date'];
+                        
+                        echo "<div class='friend-last-dive'>Last Dive:". $diveDate . "</div>";    
                         echo "<div class='friend-status " . ($is_online ? 'online' : 'offline') . "'>" . ($is_online ? 'Online' : 'Offline') . "</div>";
+                        
                     }                    
         ?>
 

@@ -919,8 +919,6 @@ span a {
 .friend-status.online,
 .friend-status.offline 
 {
-    background-image: none;
-    border-radius: 3px;
     text-align: center;
     color: #000;
     font-weight: 500;
@@ -934,3 +932,8 @@ span a {
     color: lightslategray;
 }
 
+.friend-last-dive{
+    text-align: center;
+    color: #000;
+    font-weight: 500;
+}
