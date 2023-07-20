@@ -647,163 +647,6 @@ a {
     font-weight: normal;
 }
 
-@media screen and (min-width: 450px) {
-    .detail-row {
-        flex-direction: row;
-    }
-
-    .dive-map {
-        display: none;
-    }
-
-    .dive-map-medium {
-        display: block;
-    }
-
-    .button {
-        font-size: 1rem;
-    }
-}
-
-@media screen and (min-width: 800px) {
-
-    /* dive creation page */
-    .route-creation-form {
-        max-width: 1140px;
-        margin: 0 auto;
-    }
-
-    .route-creation {
-        gap: 5%;
-        width: 100%;
-    }
-
-    /* .route-start {
-        width: 100%;
-    }
-
-    .route-end {
-        width: 100%;
-    } */
-
-    .save-dive {
-        background-color: #D9D9D9;
-        width: 60%;
-        max-width: 600px;
-        margin: 24px auto;
-        padding: 24px;
-    }
-
-    /* dive history page */
-
-    .dive-item {
-        text-align: center;
-        padding: 8px 16px;
-    }
-
-    .dive-name {
-        width: 20%;
-        text-overflow: ellipsis;
-        font-weight: 500;
-    }
-
-    .dive-date {
-        background-color: transparent;
-        width: 20%;
-    }
-
-    .dive-status {
-        width: 63px;
-        height: 23px;
-    }
-
-    .dive-status.draft,
-    .dive-status.private,
-    .dive-status.public {
-        background-image: none;
-        border-radius: 3px;
-        text-align: center;
-        color: #000;
-        font-weight: 500;
-    }
-
-    .dive-status.draft {
-        background-color: #898686;
-
-    }
-
-    .dive-status.public {
-        background-color: #169601;
-    }
-
-    .dive-status.private {
-        background-color: #d10000;
-    }
-
-    .dive-description {
-        display: block;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        width: 20%;
-    }
-
-    .dive-duration {
-        display: block;
-        width: 20%;
-
-    }
-
-    /* main dive object page*/
-
-    .dive-object-options {
-        gap: 0px;
-        margin-top: 16px;
-        justify-content: space-evenly;
-    }
-
-    /* homepage */
-
-    .home-content-area {
-        overflow: hidden;
-        flex-direction: row;
-        justify-content: space-around;
-        gap: 0px;
-
-    }
-
-    .home-content-limit {
-        max-height: 900px;
-    }
-
-    .left-side-home,
-    .right-sideh-home {
-        max-height: 900px;
-    }
-
-    .post-content p,
-    .recent-dive-content p {
-        -webkit-line-clamp: 6;
-        /* number of lines to show */
-        line-clamp: 6;
-    }
-
-    .recent-dive-area {
-        min-height: 200px;
-    }
-
-    .post-area {
-        min-height: 150px;
-    }
-}
-
-@media screen and (min-width: 1000px) {
-    .route-creation {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-    }
-}
 
 /* navbar styling */
 
@@ -920,6 +763,16 @@ span a {
 
 }
 
+.friend-status {
+    background-image: none;
+    border-radius: 3px;
+    text-align: center;
+    color: #000;
+    font-weight: 500;
+    width: 63px;
+    height: 23px;
+}
+
 .friend-status.online,
 .friend-status.offline {
     text-align: center;
@@ -928,14 +781,15 @@ span a {
 }
 
 .friend-status.online {
-    color: green;
+    background-color: #169601;
 }
 
 .friend-status.offline {
-    color: lightslategray;
+    background-color: lightblue;
 }
 
 .friend-last-dive {
+    display: none;
     text-align: center;
     color: #000;
     font-weight: 500;
@@ -947,6 +801,8 @@ span a {
     align-items: center;
     display: block;
 }
+
+.profile-margin {}
 
 .profile-section h2 {
     background-color: gray;
@@ -1019,10 +875,171 @@ span a {
     display: flex;
 }
 
-.profile-block{
-    display:block;
+.profile-block {
+    display: block;
 }
 
-.flexy-flex{
+.flexy-flex {
     display: flex;
+}
+
+
+@media screen and (min-width: 450px) {
+    .detail-row {
+        flex-direction: row;
+    }
+
+    .dive-map {
+        display: none;
+    }
+
+    .dive-map-medium {
+        display: block;
+    }
+
+    .button {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 800px) {
+
+    /* dive creation page */
+    .route-creation-form {
+        max-width: 1140px;
+        margin: 0 auto;
+    }
+
+    .route-creation {
+        gap: 5%;
+        width: 100%;
+    }
+
+    .save-dive {
+        background-color: #D9D9D9;
+        width: 60%;
+        max-width: 600px;
+        margin: 24px auto;
+        padding: 24px;
+    }
+
+    /* dive history page */
+
+    .dive-item {
+        text-align: center;
+        padding: 8px 16px;
+    }
+
+    .dive-name {
+        width: 20%;
+        text-overflow: ellipsis;
+        font-weight: 500;
+    }
+
+    .dive-date {
+        background-color: transparent;
+        width: 20%;
+    }
+
+    .dive-status {
+        width: 63px;
+        height: 23px;
+    }
+
+    .dive-status.draft,
+    .dive-status.private,
+    .dive-status.public {
+        background-image: none;
+        border-radius: 3px;
+        text-align: center;
+        color: #000;
+        font-weight: 500;
+    }
+
+    .dive-status.draft {
+        background-color: #898686;
+
+    }
+
+    .dive-status.public {
+        background-color: #169601;
+    }
+
+    .dive-status.private {
+        background-color: #d10000;
+    }
+
+    .dive-description {
+        display: block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 20%;
+    }
+
+    .dive-duration {
+        display: block;
+        width: 20%;
+
+    }
+
+    .friend-last-dive {
+        display: block;
+    }
+
+    .friend-name {
+        width: 20%;
+        text-overflow: ellipsis;
+        font-weight: 500;
+    }
+
+    /* main dive object page*/
+
+    .dive-object-options {
+        gap: 0px;
+        margin-top: 16px;
+        justify-content: space-evenly;
+    }
+
+    /* homepage */
+
+    .home-content-area {
+        overflow: hidden;
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 0px;
+
+    }
+
+    .home-content-limit {
+        max-height: 900px;
+    }
+
+    .left-side-home,
+    .right-sideh-home {
+        max-height: 900px;
+    }
+
+    .post-content p,
+    .recent-dive-content p {
+        -webkit-line-clamp: 6;
+        /* number of lines to show */
+        line-clamp: 6;
+    }
+
+    .recent-dive-area {
+        min-height: 200px;
+    }
+
+    .post-area {
+        min-height: 150px;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .route-creation {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
 }

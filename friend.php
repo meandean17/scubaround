@@ -28,17 +28,17 @@
                WHERE user_id = $userID 
                ORDER BY post_date DESC 
                LIMIT 3";
-$resultPosts = mysqli_query($connection, $queryPosts);
+    $resultPosts = mysqli_query($connection, $queryPosts);
 
-$queryCommonFriends = "SELECT DISTINCT u.username, f.is_online
-                       FROM tbl_226_friendship f
-                       INNER JOIN tbl_226_users u ON f.user2_id = u.user_id
-                       WHERE f.user1_id = $userID
-                       UNION
-                       SELECT DISTINCT u.username, f.is_online
-                       FROM tbl_226_friendship f
-                       INNER JOIN tbl_226_users u ON f.user1_id = u.user_id
-                       WHERE f.user2_id = $userID";
+    $queryCommonFriends = "SELECT DISTINCT u.username, f.is_online
+                        FROM tbl_226_friendship f
+                        INNER JOIN tbl_226_users u ON f.user2_id = u.user_id
+                        WHERE f.user1_id = $userID
+                        UNION
+                        SELECT DISTINCT u.username, f.is_online
+                        FROM tbl_226_friendship f
+                        INNER JOIN tbl_226_users u ON f.user1_id = u.user_id
+                        WHERE f.user2_id = $userID";
 $resultCommonFriends = mysqli_query($connection, $queryCommonFriends);
 ?> 
 <!DOCTYPE html>
@@ -61,14 +61,8 @@ $resultCommonFriends = mysqli_query($connection, $queryCommonFriends);
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
     <script src="js/index.js" defer></script>
-
 </head>
-
 <body>
-
-    <script>
-
-    </script>
     <header class="header">
         <div class="scub-container scub-row-space-bet">
             <div class="nav-and-logo scub-row">
@@ -142,66 +136,46 @@ $resultCommonFriends = mysqli_query($connection, $queryCommonFriends);
         </div>
     </header>
 
-<div class="scub-container content-background">
-    <div class ="flexy-flex">
-
-                <!-- --------- -->
-                <div class="profile-section">
-                    <div class="main-header">User Information</div>
-                        <div class="profile-block">
-                            <p>Username: <?php echo $userInfo['username']; ?></p>
-                            <p>Email: <?php echo $userInfo['email']; ?></p>
-                            <p>Age: <?php echo $userInfo['age']; ?></p>
-                        </div>
-                </div>
-                <!-- --------- -->
-                <!-- --------- -->
-                <div class="profile-section">
-                    <div class="main-header">Recent Posts</div>
-                        <div class="profile-block">
-                            <?php while ($rowPost = mysqli_fetch_assoc($resultPosts)) { ?>
-                                <p>Post Date: <?php echo $rowPost['post_date']; ?></p>
-                                <p>Post Description: <?php echo $rowPost['post_description']; ?></p>
-                                <hr>
-                            <?php } ?>
-                        </div>
-                </div>
-                <!-- --------- -->
-                <!-- --------- -->
-                <div class="profile-section">
-                    <div class="main-header">Recent Dives</div>
-                        <div class="profile-block">
-                                <?php while ($rowDive = mysqli_fetch_assoc($resultDives)) { ?>
-                                    <p>Dive Name: <?php echo $rowDive['dive_name']; ?></p>
-                                    <p>Dive Date: <?php echo $rowDive['dive_date']; ?></p>
-                                    <p>Route Type: <?php echo $rowDive['route_type']; ?></p>
-                                    <p>Max Depth: <?php echo $rowDive['dive_max_depth']; ?></p>
-                                    <hr>
-                                <?php } ?>
-                        </div>
-                </div>
-                <!-- --------- -->
-
-                <!-- --------- -->
-            <div class="profile-section">
-                <div class="main-header">Mutual Friends</div>
-                    <div class="profile-block">
-                        <?php while ($rowFriend = mysqli_fetch_assoc($resultCommonFriends)) { ?>
-                            <?php
-                            // Determine the color based on the friend's online status
-                            $statusColor = ($rowFriend['is_online'] == 1) ? 'green' : 'red';
-                            ?>
-                            <p>
-                                <span style="color: <?php echo $statusColor; ?>;"><?php echo $rowFriend['username']; ?></span>
-                            </p>
-                        <?php } ?>
-                </div>
+    <div class="scub-container content-background">
+        <div class="main-header profile-margin">User Information</div>
+            <div class="profile-block">
+                <p>Username: <?php echo $userInfo['username']; ?></p>
+                <p>Email: <?php echo $userInfo['email']; ?></p>
+                <p>Age: <?php echo $userInfo['age']; ?></p>
             </div>
-                <!-- --------- -->
+        <div class="main-header">Recent Posts</div>
+            <div class="profile-block">
+                <?php while ($rowPost = mysqli_fetch_assoc($resultPosts)) { ?>
+                    <p>Post Date: <?php echo $rowPost['post_date']; ?></p>
+                    <p>Post Description: <?php echo $rowPost['post_description']; ?></p>
+                    <hr>
+                <?php } ?>
+            </div>
+        <div class="main-header">Recent Dives</div>
+            <div class="profile-block">
+                    <?php while ($rowDive = mysqli_fetch_assoc($resultDives)) { ?>
+                        <p>Dive Name: <?php echo $rowDive['dive_name']; ?></p>
+                        <p>Dive Date: <?php echo $rowDive['dive_date']; ?></p>
+                        <p>Route Type: <?php echo $rowDive['route_type']; ?></p>
+                        <p>Max Depth: <?php echo $rowDive['dive_max_depth']; ?></p>
+                        <hr>
+                    <?php } ?>
+            </div>
+    <div class="main-header">Mutual Friends</div>
+        <div class="profile-block">
+            <?php while ($rowFriend = mysqli_fetch_assoc($resultCommonFriends)) { ?>
+                <?php
+                // Determine the color based on the friend's online status
+                $statusColor = ($rowFriend['is_online'] == 1) ? 'green' : 'red';
+                ?>
+                <p>
+                    <span style="color: <?php echo $statusColor; ?>;"><?php echo $rowFriend['username']; ?></span>
+                </p>
+            <?php  ?>
     </div>
-    <div class="button">
-    <button onclick="showConfirmation()">Remove Friend</button>
-</div>
+        <div class="button">
+        <button onclick="showConfirmation()">Remove Friend</button>
+    </div>
 
 <!-- Lightbox for confirmation -->
 <div id="confirmationBox" class="lightbox" style="display: none;">
