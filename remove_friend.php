@@ -1,6 +1,6 @@
 <?php
 // Include your database connection configuration file
-include "./php2/config.php";
+include "./php/config.php";
 session_start();
 if (isset($_SESSION["user_id"])) {
     $currentUserID = intval($_SESSION["user_id"]);

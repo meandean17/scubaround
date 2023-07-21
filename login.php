@@ -1,5 +1,5 @@
 <?php 
-    include "./php2/config.php";
+    include "./php/config.php";
 
     session_start();
     if(!empty($_SESSION["user_id"]))

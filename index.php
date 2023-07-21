@@ -1,16 +1,12 @@
 <?php
-    include "./php2/config.php";
+    include "./php/config.php";
     session_start(); // start session
 
     // do check
     if (!isset($_SESSION["username"])) {
         header("location: ./login.php");
         exit; // prevent further execution, should there be more code that follows
-    }
-
-
-
-       
+    }     
 ?>
 
 <!DOCTYPE html>

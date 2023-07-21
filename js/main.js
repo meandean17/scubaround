@@ -144,7 +144,7 @@ saveChanges = () => {
                 window.location.href = window.location.href
             }
         };
-        xhttp.open("POST", "./php2/edit_dive.php", true);
+        xhttp.open("POST", "./php/edit_dive.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("dive_id=" + (diveId) + "&dive_name=" + (sanitizedTitle) + "&dive_desc=" + (sanitizedDesc) + "&dive_status=" + (editedStatus));
     }
@@ -182,7 +182,7 @@ deleteDive2 = () => {
             window.location.href = "./list.php";
         }
     };
-    xhttp.open("POST", "./php2/delete_dive.php", true);
+    xhttp.open("POST", "./php/delete_dive.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("deleteDive=" + (diveId));
 }
