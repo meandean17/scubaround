@@ -127,7 +127,7 @@
                 <a href="./index.php"><img src="./imgs/logo.png" alt="scubaround logo" class="logo"></a>
             </div>
             <div class="search-and-profile">
-                <a href="./profile.php"><img src="./imgs/profile-icon.png" alt="profile logo" class="profile-logo"></a>
+               <a href="./profile.php"><img src="<?php echo $_SESSION["user_img"]; ?>" alt="profile logo" class="profile-logo"></a>
             </div>
         </div>
     </header>
