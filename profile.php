@@ -113,12 +113,10 @@
         </div>
             <?php
             $userID = $_SESSION['user_id'];
-            $query = "SELECT * FROM tbl_226_users WHERE user_id = ?";
-            $stmt = $connection->prepare($query);
-            $stmt->bind_param("i", $userID); // i = int (cause user_id is int)
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $row = $result->fetch_assoc();
+            $query = "SELECT * FROM tbl_226_users WHERE user_id = $userID";
+            $result = mysqli_query($connection, $query);
+            
+            $row = mysqli_fetch_assoc($result);
             ?>
             <form method="post">
                 <input class='form-control' type="hidden" name="user_id" value="<?php echo $row['user_id']; ?>">
