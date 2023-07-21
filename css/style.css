@@ -73,6 +73,10 @@ a {
     opacity: 80%;
 }
 
+.profile-logo {
+    width: 73px;
+    border-radius: 100px;
+}
 
 .mobile-header {
     width: 100%;
@@ -591,14 +595,16 @@ a {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin: 12px auto 64px;
-    height: fit-content
+    height: fit-content;
+    width: 90%;
+    margin: 16px auto;
 }
 
 .left-side-home {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 100%;
 }
 
 .home-content-limit {
@@ -758,6 +764,19 @@ span a {
     background-color: transparent;
     border: none;
     color: black;
+}
+
+.friend-img-and-name {
+    display: flex;
+    gap: 8px;
+    justify-content: space-around;
+    align-items: center;
+    width: 20%;
+}
+
+.friend-img img {
+    width: 30px;
+    border-radius: 100px;
 }
 
 .friend-name {
@@ -1018,7 +1037,9 @@ span a {
         overflow: hidden;
         flex-direction: row;
         justify-content: space-around;
-        gap: 0px;
+        gap: 16px;
+        width: 90%;
+        margin: 0 auto;
 
     }
 
@@ -1027,8 +1048,12 @@ span a {
     }
 
     .left-side-home,
-    .right-sideh-home {
+    .right-side-home {
         max-height: 900px;
+    }
+
+    .right-side-home {
+        width: 40%;
     }
 
     .post-content p,

@@ -4,9 +4,11 @@
 
     // do check
     if (!isset($_SESSION["username"])) {
-        header("location: .login.php");
+        header("location: ./login.php");
         exit; // prevent further execution, should there be more code that follows
     }
+
+
 
        
 ?>
@@ -28,7 +30,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
-    <script src="./js/index.js" defer></script>
+    <script src="./js/nav.js" defer></script>
 </head>
 
 <body>
@@ -100,13 +102,13 @@
                 <a href="./index.php"><img src="./imgs/logo.png" alt="scubaround logo" class="logo"></a>
             </div>
             <div class="search-and-profile">
-                <a href="./profile.php"><img src="./imgs/profile-icon.png" alt="profile logo" class="profile-logo"></a>
+                <a href="./profile.php"><img src="<?php echo $_SESSION["user_img"]; ?>" alt="profile logo" class="profile-logo"></a>
             </div>
         </div>
     </header>
     <div class="home-content-area">
         <div class="left-side-home">
-            <div class="scub-container content-background">
+            <div class="content-background">
                 <a href="./newdive.php">
                     <div class="main-header scub-row-space-bet">
                         <h2>Today's Conditions</h2>
@@ -128,7 +130,7 @@
                     </div>
                 </a>
             </div>
-            <div class="scub-container content-background home-content-limit">
+            <div class="content-background home-content-limit">
                 <div class="main-header">
                     <a href="#">
                         <h2>Shared Posts</h2>
@@ -186,7 +188,7 @@
             </div>
         </div>
         <div class="right-side-home">
-            <div class="scub-container content-background home-content-limit">
+            <div class="content-background home-content-limit">
                 <a href="./list.php">
                     <div class="main-header">
                         <h2>Recent Dives</h2>
@@ -229,65 +231,6 @@
                                       
                     }
                     ?>
-                    <!-- <div class="recent-dive-area">
-                        <div class="recent-dive-header">
-                            <h3>Mystic Caverns</h3>
-                            <span>18/08/23</span>
-                        </div>
-                        <div class="recent-dive-content">
-                            <p>I ventured into a mysterious underwater cave system, my
-                                flashlight
-                                illuminating the dark passages. The cave walls were adorned with breathtaking stalactite
-                                formations, and the water sparkled with bioluminescent creatures. I was amazed by the
-                                graceful
-                                shark that swam past me, seemingly at home in this otherworldly realm.</p>
-                        </div>
-                    </div>
-                </a>
-                <div class="post-area-divider"></div>
-                <div class="recent-dive-area">
-                    <div class="recent-dive-header">
-                        <h3>Whale Symphony</h3>
-                        <span>02/06/23</span>
-                    </div>
-                    <div class="recent-dive-content">
-                        <p>I was filled with excitement as I dived alongside humpback
-                            whales.
-                            The magnificent creatures communicated through powerful songs, creating a symphony that
-                            resonated through the water. Witnessing their breaches and hearing their melodic calls was a
-                            truly awe-inspiring experience.</p>
-                    </div>
-                </div>
-                <div class="post-area-divider"></div>
-                <div class="recent-dive-area">
-                    <div class="recent-dive-header">
-                        <h3>Coral Paradise</h3>
-                        <span>07/05/23</span>
-                    </div>
-                    <div class="recent-dive-content">
-                        <p>As I descended into the coral reef, I was greeted by a vibrant
-                            explosion of colors. The underwater world was teeming with life. I swam alongside elegant
-                            manta
-                            rays and marveled at the intricate structures of the coral. It was a true paradise for
-                            marine
-                            enthusiasts like me.</p>
-                    </div>
-                </div>
-                <div class="post-area-divider"></div>
-                <div class="recent-dive-area">
-                    <div class="recent-dive-header">
-                        <h3>Sunken Secrets</h3>
-                        <span>15/03/23</span>
-                    </div>
-                    <div class="recent-dive-content">
-                        <p>I descended into the depths to explore the remains of an ancient
-                            shipwreck. As I swam through hidden chambers, I discovered coral-encrusted artifacts and
-                            encountered a vibrant school of tropical fish, their colors shimmering in the sunlight.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
 </body>
 
 </html>

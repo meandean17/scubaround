@@ -29,12 +29,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
-    <script src="js/index.js" defer></script>
+    <script src="js/nav.js" defer></script>
 
 </head>
 
 <body>
-
     <header class="header">
         <div class="scub-container scub-row-space-bet">
             <div class="nav-and-logo scub-row">
@@ -109,8 +108,10 @@
     </header>
 
     <div class="scub-container content-background">
-    <div class="main-header">
-        <div class="profile-section">
+        <div class="main-header">
+            <h2>User Settings</h2>
+        </div>
+            <div class="profile-section">
             <?php
             $userID = $_SESSION['user_id'];
             $query = "SELECT * FROM tbl_226_users WHERE user_id = ?";
@@ -120,7 +121,6 @@
             $result = $stmt->get_result();
             $row = $result->fetch_assoc();
             ?>
-            <h2>User Setting</h2>
             <form method="post">
                 <input type="hidden" name="user_id" value="<?php echo $row['user_id']; ?>">
                 <div class="profile-block">
@@ -140,10 +140,7 @@
                 <input type="email" name="email" value="<?php echo $row['email']; ?>" required>
                 </div>
                 <div class="profile-block">
-                <button type="submit">Save Changes</button>
-                </div>
-                <div class="profile-section">
-                    <h2>Profile</h2>
+                <button class="button" type="submit">Save Changes</button>
                 </div>
             </form>
             <?php
@@ -153,11 +150,9 @@
                 $age = $_POST['age'];
                 $email = $_POST['email'];
 
-                $query2 = "UPDATE tbl_226_users SET username=?, password=?, age=?, email=? WHERE user_id=?";
-                $stmt2 = $connection->prepare($query2);
-                $stmt2->bind_param("ssisi", $username, $password, $age, $email, $userID); //string string integer strin integer
-
-                if ($stmt2->execute()) {
+                $query2 = "UPDATE tbl_226_users SET username='" . $username . "', password='" . $password . "', age='" . $age . "', email='" . $email . "' WHERE user_id='" . $userID . "'";
+                $result = mysqli_query($connection, $query2);
+                if ($result) {
                     $message = "Record updated successfully.";
                 } else {
                     $message = "Error updating record: " . $connection->error;
@@ -165,11 +160,6 @@
             }
             ?>
         </div>
-    </div>
-</div>       
-        </div>
-        
-    </div>
-</div>
+    </div>       
 </body>
 </html>
