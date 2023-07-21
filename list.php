@@ -154,6 +154,7 @@
                             $diveDur = $row['dive_duration'];
                             
                             echo '<a href="./dive.php?dive_id=' . $diveId . '" class="dive-list-item">';
+                            echo "<div class='favorite' userid='" . $_SESSION["user_id"] . "' id='" . $diveId . "'></div>";
                             echo "<div class='dive-name'>" . $diveName . "</div>";
                             echo "<div class='dive-date'>" . $diveDate . "</div>";
                             echo "<div class='dive-status " . ($diveStatus ? 'public' : 'private') . "'>" . ($diveStatus ? 'Public' : 'Private') . "</div>";
