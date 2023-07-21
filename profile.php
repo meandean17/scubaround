@@ -130,7 +130,7 @@
                 </div>
                 <div class="profile-block">
                 <label for="age">Age:</label>
-                <input class='form-control' type="text" name="age" value="<?php echo $row['age']; ?>" required>
+                <input class='form-control' type="number" name="age" value="<?php echo $row['age']; ?>" required>
                 </div>
                 <div class="profile-block">
                 <label for="email">E-mail:</label>
