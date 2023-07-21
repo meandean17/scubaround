@@ -38,7 +38,7 @@ function handleFormSubmit(event) {
     // Send the form data to the server using AJAX or fetch
 
     // Example using fetch:
-    fetch('./php2/newdive.php', {
+    fetch('./php/newdive.php', {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {

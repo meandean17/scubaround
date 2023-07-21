@@ -1,5 +1,5 @@
 <?php
-    include "./php2/config.php";
+    include "./php/config.php";
     $message = "";
     // if a session already exists, destroy it
     session_start();
