@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 New Post
                             </div>
                         </a>
-                        <a href="#">
+                        <a href="./community.php">
                             <div class="nav-item">
                                 <img src="./imgs/groups_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Community

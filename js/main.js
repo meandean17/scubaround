@@ -58,7 +58,6 @@ function getQueryVariable(variable) {
 
 
 const editDiveButton = document.getElementById('editBtn');
-const postDiveButton = document.getElementById('postBtn');
 const shareDiveButton = document.getElementById('shareBtn');
 const saveDiveButton = document.getElementById('saveBtn');
 const cancelDiveButton = document.getElementById('cancelBtn');
@@ -77,7 +76,6 @@ const diveStatus = document.querySelector('#diveStatus');
 
 editDiveButton.addEventListener('click', () => {
     // hide irrelevant buttons
-    postDiveButton.style.display = 'none';
     shareDiveButton.style.display = 'none';
     editDiveButton.style.display = 'none';
 
@@ -103,7 +101,6 @@ editDiveButton.addEventListener('click', () => {
     // cancel
     cancelDiveButton.addEventListener('click', () => {
         //show relevant buttons
-        postDiveButton.style.display = 'block';
         shareDiveButton.style.display = 'block';
         editDiveButton.style.display = 'block';
 
@@ -114,8 +111,10 @@ editDiveButton.addEventListener('click', () => {
         // make content uneditable
         diveDetails.contentEditable = false;
         diveDetails.innerHTML = prevDetails;
+        diveDetails.style.backgroundColor = 'transparent';
         diveTitle.contentEditable = false;
         diveTitle.innerHTML = prevTitle
+        diveTitle.style.backgroundColor = 'transparent';
         diveStatus.style.display = 'block';
         diveStatus.innerHTML = prevStatus;
         diveStatusToggle.style.display = 'none';
@@ -144,7 +143,7 @@ saveChanges = () => {
                 window.location.href = window.location.href
             }
         };
-        xhttp.open("POST", "./php/edit_dive.php", true);
+        xhttp.open("POST", "./php2/edit_dive.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("dive_id=" + (diveId) + "&dive_name=" + (sanitizedTitle) + "&dive_desc=" + (sanitizedDesc) + "&dive_status=" + (editedStatus));
     }
@@ -182,7 +181,7 @@ deleteDive2 = () => {
             window.location.href = "./list.php";
         }
     };
-    xhttp.open("POST", "./php/delete_dive.php", true);
+    xhttp.open("POST", "./php2/delete_dive.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("deleteDive=" + (diveId));
 }

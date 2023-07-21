@@ -913,6 +913,12 @@ span a {
     display: flex;
 }
 
+/* new post */
+
+.new-post-btn {
+    display: flex;
+    justify-content: center;
+}
 
 @media screen and (min-width: 450px) {
     .detail-row {
