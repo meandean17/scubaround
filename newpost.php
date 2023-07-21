@@ -1,43 +1,31 @@
 <?php
-    include "./php/config.php";
-    session_start(); // start session
+    include './php/config.php';
+    session_start();
 
-    // check for login
-    if (!isset($_SESSION["username"])) {
-        header("location: ./login.php");
-        exit; // prevent further execution
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: ./login.html");
+        exit();
     }
-    
-?> 
-<!DOCTYPE html>
-<html lang="en">
 
+    $userID = $_SESSION['user_id'];
+?>
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Friends</title>
+    <title>Dive Object</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <style>
-
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
-    </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
-    <script src="js/nav.js" defer></script>
-
+    <script src="./js/nav.js" defer></script>
 </head>
-
 <body>
-
-    <script>
-
-    </script>
-    <header class="header">
+<header class="header">
         <div class="scub-container scub-row-space-bet">
             <div class="nav-and-logo scub-row">
                 <div class="hamburger-button">
@@ -85,7 +73,7 @@
                         <a href="#">
                             <div class="nav-item">
                                 <img src="./imgs/settings_FILL1_wght400_GRAD0_opsz48.png" alt="">
-                                Settings
+                                Setting
                             </div>
                         </a>
                         <a href="#">
@@ -109,58 +97,56 @@
             </div>
         </div>
     </header>
+    <h1>New Post</h1>
+    <form method="post">
+        <label for="user_id">User ID:</label>
+        <input type="text" id="user_id" name="user_id" required><br>
 
-    <div class="scub-container content-background" >
-    <div class="main-header">
-                <h2>Friends</h2>
-    </div>
-    <ul id="diveList" class="dive-list">
-        <?php
-            $userID = $_SESSION['user_id'];
-            $query = "SELECT tbl_226_users.username,tbl_226_friendship.user1_id, tbl_226_friendship.user2_id, tbl_226_friendship.is_online, tbl_226_users.user_img 
-                    FROM tbl_226_friendship
-                    INNER JOIN tbl_226_users ON tbl_226_friendship.user2_id = tbl_226_users.user_id
-                    WHERE tbl_226_friendship.user1_id = $userID OR tbl_226_friendship.user2_id = $userID";
-            $result = mysqli_query($connection, $query);
-            
-            if(!mysqli_num_rows($result))
-            {
-                echo "<div class='dive-list-item' style='justify-content:center'>No friends found</div>";
-            }
-            else
-            {
-                while ($row = mysqli_fetch_assoc($result))
-                {
-                    $targetUserId = ($row['user1_id'] == $userID) ? $row['user2_id'] : $row['user1_id'];
-                    $friendName = $row['username'];
-                    $is_online = $row['is_online'];
-                    $friendImg = $row['user_img'];
-                    echo "<a href='./friend.php?user_id=" . $targetUserId . "' class='dive-list-item'>";
-                    echo "<div class='friend-img-and-name'>";
-                    echo "<div class='friend-img'><img src='" . $friendImg . "' alt='" . $friendName . " profile pic'></div>";
-                    echo "<div class='friend-name'>" . $friendName . "</div>";
-                    echo "</div>";
+        <label for="dive_id">Dive ID:</label>
+        <input type="text" id="dive_id" name="dive_id" required><br>
 
-                    $query2 = "SELECT tbl_226_dive_details.dive_date 
-                                FROM tbl_226_dive_details
-                                INNER JOIN tbl_226_dives USING(dive_id)
-                                INNER JOIN tbl_226_users ON tbl_226_dives.user_id = tbl_226_users.user_id
-                                WHERE tbl_226_users.user_id = $targetUserId and tbl_226_dives.is_public = true  ORDER BY tbl_226_dive_details.dive_date DESC LIMIT 1";
+        <label for="post_description">Post Description:</label><br>
+        <textarea id="post_description" name="post_description" rows="5" cols="50" required></textarea><br>
 
-                    $result2 = mysqli_query($connection, $query2);
-                    
-                    // $last_dive = mysqli_fetch_assoc($result2);
-                    $diveDate = "-";
-                    if($last_dive = mysqli_fetch_array($result2))
-                        $diveDate = $last_dive['dive_date'];
-                    
-                    echo "<div class='friend-last-dive'>Last Dive: ". $diveDate . "</div>";    
-                    echo "<div class='friend-status " . ($is_online ? 'online' : 'offline') . "'>" . ($is_online ? 'Online' : 'Offline') . "</div>";                    
-                    echo "</a>";
-                }   
-            }                 
-        ?>
-    </ul>
-    </div>
+        <input type="submit" name="submit" value="Create Post">
+    </form>
+
+    <?php
+    // Check if the form is submitted
+    if (isset($_POST['submit'])) {
+        // Get the form data
+        $user_id = $_POST['user_id'];
+        $dive_id = $_POST['dive_id'];
+        $post_description = $_POST['post_description'];
+        $post_date = $_POST['post_date'];
+
+        // Database connection setup (replace the placeholders with your actual database credentials)
+        $host = 'your_database_host';
+        $username = 'your_database_username';
+        $password = 'your_database_password';
+        $database = 'your_database_name';
+
+        // Create a connection
+        $conn = new mysqli($host, $username, $password, $database);
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        // Prepare and execute the SQL query to insert the new post
+        $sql = "INSERT INTO tbl_226_posts (user_id, dive_id, post_description, post_date) 
+                VALUES ('$user_id', '$dive_id', '$post_description', '$post_date')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "New post created successfully.";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+
+        // Close the database connection
+        $conn->close();
+    }
+    ?>
 </body>
 </html>

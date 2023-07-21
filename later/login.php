@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <a href="#">
                             <div class="nav-item">
                                 <img src="../imgs/chat_FILL1_wght400_GRAD0_opsz48.png" alt="">
-                                Messages
+                                New Post
                             </div>
                         </a>
                         <a href="#">
