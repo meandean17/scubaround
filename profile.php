@@ -72,7 +72,7 @@
                                 New Post
                             </div>
                         </a>
-                        <a href="./community.php">
+                        <a href="#">
                             <div class="nav-item">
                                 <img src="./imgs/groups_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Community
@@ -107,11 +107,10 @@
         </div>
     </header>
 
-    <div class="scub-container content-background">
+    <div class="scub-container content-background profile-section">
         <div class="main-header">
             <h2>User Settings</h2>
         </div>
-            <div class="profile-section">
             <?php
             $userID = $_SESSION['user_id'];
             $query = "SELECT * FROM tbl_226_users WHERE user_id = ?";
@@ -122,25 +121,27 @@
             $row = $result->fetch_assoc();
             ?>
             <form method="post">
-                <input type="hidden" name="user_id" value="<?php echo $row['user_id']; ?>">
+                <input class='form-control' type="hidden" name="user_id" value="<?php echo $row['user_id']; ?>">
                 <div class="profile-block">
                 <label for="username">Username:</label>
-                <input type="text" name="username" value="<?php echo $row['username']; ?>" required>
+                <input class='form-control' type="text" name="username" value="<?php echo $row['username']; ?>" required>
                 </div>
                 <div class="profile-block">
                 <label for="password">Password:</label>
-                <input type="password" name="password" value="<?php echo $row['password']; ?>" required>
+                <input class='form-control' type="password" name="password" value="<?php echo $row['password']; ?>" required>
                 </div>
                 <div class="profile-block">
                 <label for="age">Age:</label>
-                <input type="text" name="age" value="<?php echo $row['age']; ?>" required>
+                <input class='form-control' type="text" name="age" value="<?php echo $row['age']; ?>" required>
                 </div>
                 <div class="profile-block">
                 <label for="email">E-mail:</label>
-                <input type="email" name="email" value="<?php echo $row['email']; ?>" required>
+                <input class='form-control' type="email" name="email" value="<?php echo $row['email']; ?>" required>
                 </div>
                 <div class="profile-block">
-                <button class="button" type="submit">Save Changes</button>
+                <div class="save-profile-btn">
+                    <button class="button " type="submit">Save Changes</button>
+                </div>
                 </div>
             </form>
             <?php
@@ -159,7 +160,6 @@
                 }
             }
             ?>
-        </div>
     </div>       
 </body>
 </html>
