@@ -97,7 +97,7 @@
                                 New Post
                             </div>
                         </a>
-                        <a href="#">
+                        <a href="./community.php">
                             <div class="nav-item">
                                 <img src="./imgs/groups_FILL1_wght400_GRAD0_opsz48.png" alt="">
                                 Community
@@ -213,7 +213,6 @@
         ?>
         <div class="dive-object-options scub-row-space-bet">
             <button class="button" name='edit' id="editBtn">Edit</button>
-            <button class="button share-dive-btn" id='postBtn'>Post</button>
             <button class="button share-dive-btn" id='shareBtn'>Share</button>
             <button class="button alter-dive-btn" onclick="saveChanges()" name='save' id='saveBtn'>Save</button>
             <button class="button alter-dive-btn" onclick="deleteDive()" name='delete' id='deleteBtn'>Delete</button>

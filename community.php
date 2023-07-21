@@ -1,22 +1,23 @@
 <?php
-    include './php/config.php';
-    session_start();
+    include "./php/config.php";
+    session_start(); // start session
 
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: ./login.html");
-        exit();
+    // check for login
+    if (!isset($_SESSION["username"])) {
+        header("location: ./login.php");
+        exit; // prevent further execution
     }
 
     $userID = $_SESSION['user_id'];
-    $message = "";
-?>
+    
+?> 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Post</title>
+    <title>Commnunity</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
@@ -26,7 +27,7 @@
     <script src="./js/nav.js" defer></script>
 </head>
 <body>
-<header class="header">
+    <header class="header">
         <div class="scub-container scub-row-space-bet">
             <div class="nav-and-logo scub-row">
                 <div class="hamburger-button">
@@ -99,39 +100,24 @@
         </div>
     </header>
     <div class="scub-container content-background">
-        <div class="main-header">
-            <h2>New Post</h2>
-        </div>
-        <form method="post">
-            <label for="post_description">Post Description:</label><br>
-            <textarea id="post_description" class='form-control' name="post_description" rows="5" cols="50" required></textarea><br>
-            <div class="new-post-btn">
-                <button type="submit" class='button' name="submit">Create Post</button>
-            </div>
-        </form>
-        <?php echo $message; ?>
+        <?php
+            $friends_query = "SELECT tbl_226_users.username,tbl_226_friendship.user1_id, tbl_226_friendship.user2_id, tbl_226_friendship.is_online, tbl_226_users.user_img 
+            FROM tbl_226_friendship
+            INNER JOIN tbl_226_users ON (tbl_226_friendship.user2_id = tbl_226_users.user_id OR tbl_226_friendship.user1_id = tbl_226_users.user_id)
+            WHERE tbl_226_friendship.user1_id = $userID OR tbl_226_friendship.user2_id = $userID";
+            $friends_result = mysqli_query($connection, $friends_query);
+            while($friends_row = mysqli_fetch_assoc($friends_result))
+            {
+                $targetUserId = ($friends_row['user1_id'] == $userID) ? $friends_row['user2_id'] : $friends_row['user1_id'];
+                $posts_query = "SELECT * FROM tbl_226_posts WHERE user_id=$targetUserId ORDER BY post_date DESC";
+                $posts_result = mysqli_query($connection, $posts_query);
+                while($posts_row = mysqli_fetch_assoc($posts_result))
+                {   
+                    echo "<div class='main-header'>" . $friends_row["username"] . "</div>";
+                    echo "<p class='post-desc'>" . $posts_row["post_description"] . "</p>";
+                }
+            }
+            ?>
     </div>
-    <?php
-    // Check if the form is submitted
-    if (isset($_POST['submit'])) {
-        // Get the form data
-        $user_id = $_SESSION['user_id'];
-        $post_description = $_POST['post_description'];
-        $dive_id = "";
-        // Prepare and execute the SQL query to insert the new post
-        $query = "INSERT INTO tbl_226_posts (user_id, post_description, post_date) 
-                VALUES ('$user_id', '$post_description', CURDATE())";
-
-        $result = mysqli_query($connection, $query);
-        if($result)
-            echo "post added";
-        else 
-            echo "Error: " . $query . "<br>" . $connection->error;
-        
-
-        // Close the database connection
-        $connection->close();
-    }
-    ?>
 </body>
 </html>
